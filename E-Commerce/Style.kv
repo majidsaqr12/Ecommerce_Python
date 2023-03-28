@@ -23,6 +23,7 @@
         # required: True
         mode: "line"
 
+
     MDIconButton:
         icon: "eye-off"
         pos_hint: {"center_y": .5}
@@ -36,7 +37,7 @@ My_Layout:
     ScreenManager:
         id: screen_mngr
         home: home
-        Screen:
+        Screen1:
             id: home
             name: "home"
 
@@ -60,6 +61,7 @@ My_Layout:
                     on_release: app.switch_theme_style()
 
                 MDLabel:
+                    id: sign
                     text: "SIGN IN"
                     halign: "center"
                     valign: "center"
@@ -74,24 +76,29 @@ My_Layout:
                     pos_hint: {"center_x": .5, "y": .5}
 
                 ClickableTextFieldRoundPassword:
+                    id: passw
                     size_hint_x: None
                     size_hint: 0.8,0.8
                     hint_text: "Password"
+
                     pos_hint: {"center_x": .5, "center_y": .5}
 
                 MDRoundFlatButton:
+                    id: sign_btn
                     text: "Sign In"
                     size_hint: 0.5,0.2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                MDLabel:
-                    text: "OR"
-                    halign: "center"
-                    valign: "center"
-                    bold: True
-                    size_hint: 0.5,0.5
-                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release:screen_mngr.current = "home1"
+                    on_press: app.logger()
                 MDFlatButton:
-                    text: "Join with us"
+                    text: "Forget Password ?"
+                    theme_text_color: "Custom"
+                    text_color: "orange"
+                    size_hint: 0.5,0.2
+                    pos_hint: {"center_x": .5, "center_y": .2}
+                    on_release: screen_mngr.current = "fgt_pass"
+                MDFlatButton:
+                    text: "Join With US"
                     theme_text_color: "Custom"
                     text_color: "orange"
                     size_hint: 0.5,0.2
@@ -99,7 +106,7 @@ My_Layout:
                     on_release: screen_mngr.current = "signup"
 
 
-        Screen:
+        Signup_Screen:
             id: signup
             name: "signup"
             MDCard:
@@ -112,14 +119,6 @@ My_Layout:
                 shadow_offset: 0, 2
                 radius: 20
                 spacing: "5dp"
-
-                MDIconButton:
-                    icon: "theme-light-dark"
-                    pos_hint: {"center_x": .5, "center_y": .5}
-                    icon_size: "30sp"
-                    icon_color: "red"
-                    #md_bg_color: app.theme_cls.primary_color
-                    on_release: app.switch_theme_style()
 
                 MDLabel:
                     text: "SIGN UP"
@@ -137,6 +136,7 @@ My_Layout:
                     text_color_normal: "gray"
 
                 ClickableTextFieldRoundPassword:
+                    id: sign_up_field
                     size_hint_x: None
                     size_hint: 0.8,0.8
                     hint_text: "Password"
@@ -149,9 +149,11 @@ My_Layout:
                     pos_hint: {"center_x": .5, "center_y": .5}
 
                 MDRoundFlatButton:
+                    id: sign_up_button
                     text: "Sign up"
                     size_hint: 0.5,0.2
                     pos_hint: {"center_x": .5, "center_y": .5}
+                    on_press: app.logger()
                 MDLabel:
                     text: "Have an account ?"
                     halign: "center"
@@ -166,3 +168,224 @@ My_Layout:
                     pos_hint: {"center_x": .5, "center_y": .2}
                     on_release: screen_mngr.current = "home"
 
+
+        Fgt_pass_Screen:
+            id: fgt_pass
+            name: "fgt_pass"
+
+            MDLabel:
+                text: "   Forget Password"
+                halign: "center"
+                valign: "center"
+                pos_hint: {"x": -0.2, "y": 0.4}
+                bold: True
+                font_style: "H5"
+
+            MDTextField:
+                id: text_field
+                hint_text: "Email"
+                # text: "Email"
+                icon_left: "email"
+                required: True
+                mode: "rectangle"
+                pos_hint: {"x": 0.1, "y": 0.7}
+                size_hint_x: 0.8
+
+            MDRoundFlatButton:
+                text: "send"
+                size_hint: 0.8,0.1
+                pos_hint: {"x": .1, "y": .5}
+
+
+            MDIconButton:
+                icon: "arrow-left"
+                pos_hint: {"x": .1, "y": 0.1}
+                icon_size: "30sp"
+                icon_color: "red"
+                #md_bg_color: app.theme_cls.primary_color
+                on_release: screen_mngr.current = "home"
+
+        MD_Bottom_Navigation_Screen:
+            id: home1
+            name: "home1"
+
+            MDBottomNavigation:
+                theme_icon_color: "Custom"
+                icon_color: app.theme_cls.primary_color
+
+
+                MDBottomNavigationItem:
+                    name: 'HomePage'
+                    icon: 'home'
+                    # badge_icon: "numeric-10"
+                    MDTextField:
+                        hint_text: "Search"
+                        mode: "round"
+                        icon_left: "magnify"
+                        size_hint_x: 0.6
+                        pos_hint: {"x": 0.1 - 0.02, "y": 0.9 + 0.01}
+                        elevation: 0
+
+                    MDBoxLayout:
+                        id: box
+                        spacing: "56dp"
+                        adaptive_size: True
+                        pos_hint: {"x": 0.8, "y": 0.9 }
+                        MDIconButton:
+                            icon: "heart-outline"
+                            #pos_hint: {"x": 0.8, "y": 0.9}
+                            icon_size: "16sp"
+                            theme_icon_color: "Custom"
+                            #icon_color: app.theme_cls.primary_color
+                            #md_bg_color: app.theme_cls.primary_color
+                            md_bg_color: "gray"
+                            text_color: "orange"
+
+                    MDSmartTile:
+                        radius: 10
+                        box_radius: [0, 0, 10, 10]
+                        box_color: 1, 1, 1, .2
+                        source: "imgs/2.jpg"
+                        pos_hint: {"center_x": .5, "center_y": .7 + 0.02}
+                        size_hint: None, None
+                        size: "300dp", "150dp"
+
+                        MDLabel:
+                            text: "SHOPPING NOW"
+                            bold: True
+                            #theme_text_color: "Custom"
+                            text_color: "ffa500"
+
+                    MDLabel:
+                        text: "Categories"
+                        bold: True
+                        pos_hint: {"center_x":0.6, "center_y": .5 + 0.02}
+                        theme_text_color: "Custom"
+                        text_color: "ffa500"
+
+                    MDFloatingActionButton:
+                        icon: "laptop"
+                        md_bg_color: app.theme_cls.primary_color
+                        pos_hint: {"center_x":0.2 - 0.02, "center_y": .4 + 0.01}
+
+                    MDLabel:
+                        text: "Laptop"
+                        pos_hint: {"center_x": 0.6 , "center_y": .3 + 0.01}
+                        theme_text_color: "Custom"
+                        text_color: "ffffff"
+
+                    MDLabel:
+                        text: "Camera"
+                        pos_hint: {"center_x": 0.8 + 0.04 , "center_y": .3 + 0.01}
+                        theme_text_color: "Custom"
+                        text_color: "ffffff"
+
+                    MDFloatingActionButton:
+                        icon: "camera"
+                        md_bg_color: app.theme_cls.primary_color
+                        pos_hint: {"center_x":0.4 + 0.01, "center_y": .4 + 0.01}
+
+                    MDLabel:
+                        text: "Phone"
+                        pos_hint: {"center_x": ( 0.9 + 0.2 ) - 0.02 , "center_y": .3 + 0.01}
+                        theme_text_color: "Custom"
+                        text_color: "ffffff"
+
+                    MDFloatingActionButton:
+                        icon: "cellphone"
+                        md_bg_color: app.theme_cls.primary_color
+                        pos_hint: {"center_x":0.6 + 0.04, "center_y": .4 + 0.01}
+
+                    MDFloatingActionButton:
+                        icon: "controller"
+                        md_bg_color: app.theme_cls.primary_color
+                        pos_hint: {"center_x":0.8 + 0.06, "center_y": .4 + 0.01}
+
+                    MDLabel:
+                        text: "Games"
+                        pos_hint: {"center_x": ( 0.9 + 0.4 ) - 0.01 , "center_y": .3 + 0.01}
+                        theme_text_color: "Custom"
+                        text_color: "ffffff"
+
+
+
+                    MDSmartTile:
+                        radius: 10
+                        box_radius: [0, 0, 10, 10]
+                        box_color: 1, 1, 1, .2
+                        source: "imgs/ex.jpg"
+                        pos_hint: {"x": .1, "y": 0.1 - 0.06}
+                        size_hint: None, None
+                        size: "120dp", "100dp"
+
+                        MDIconButton:
+                            icon: "earbuds"
+                            theme_icon_color: "Custom"
+                            icon_color: "ffa500"
+                            pos_hint: {"center_y": .3}
+                            #on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+
+                        MDLabel:
+                            text: "Accessories"
+                            bold: True
+                            pos_hint: {"center_y": .3}
+                            #color: 0, 0, 1, 1
+                            theme_text_color: "Custom"
+                            text_color: "ffa500"
+
+                    MDSmartTile:
+                        radius: 10
+                        box_radius: [0, 0, 10, 10]
+                        box_color: 1, 1, 1, .2
+                        source: "imgs/ex.jpg"
+                        pos_hint: {"x": .6, "y": 0.1 - 0.06}
+                        size_hint: None, None
+                        size: "120dp", "100dp"
+
+                        MDIconButton:
+                            icon: "earbuds"
+                            theme_icon_color: "Custom"
+                            icon_color: "ffa500"
+                            pos_hint: {"center_y": .3}
+                            #on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+
+                        MDLabel:
+                            text: "Accessories"
+                            bold: True
+                            pos_hint: {"center_y": .3}
+                            #color: 0, 0, 1, 1
+                            theme_text_color: "Custom"
+                            text_color: "ffa500"
+
+                MDBottomNavigationItem:
+                    name: 'screen 2'
+                    icon: 'bell-ring'
+
+                    MDLabel:
+                        text: 'Notification'
+                        halign: 'center'
+
+                MDBottomNavigationItem:
+                    name: 'screen 3'
+                    icon: 'shopping'
+                    icon_color: 'red'
+
+                    MDLabel:
+                        text: 'shopping'
+                        halign: 'center'
+
+                MDBottomNavigationItem:
+                    name: 'screen 4'
+                    icon: 'account-circle-outline'
+
+                    MDLabel:
+                        text: 'Profile'
+                        halign: 'center'
+
+                MDBottomNavigationItem:
+                    name: 'screen 5'
+                    icon: 'cog'
+
+                    MDLabel:
+                        text: 'Setting'
+                        halign: 'center'

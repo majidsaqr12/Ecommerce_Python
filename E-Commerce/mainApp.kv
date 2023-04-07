@@ -1,15 +1,3 @@
-<ClickableTextFieldRoundEmail>:
-    size_hint_y: None
-    height: text_field.height
-
-    MDTextField:
-        id: text_field
-        hint_text: root.hint_text
-        text: root.text
-        icon_left: "email"
-        # required: True
-        mode: "line"
-
 <ClickableTextFieldRoundPassword>:
     size_hint_y: None
     height: text_field.height
@@ -17,12 +5,10 @@
     MDTextField:
         id: text_field
         hint_text: root.hint_text
-        text: root.text
         password: True
         icon_left: "key-variant"
         # required: True
         mode: "line"
-
 
     MDIconButton:
         icon: "eye-off"
@@ -43,24 +29,23 @@ My_Layout:
             title: "Sign In"
 
             MDCard:
+                id: md_login
                 orientation: "vertical"
                 padding: 0, "20dp", 0 , "20dp"
                 size_hint: .8, .8 - 0.03
                 pos_hint: {"center_x": .5, "center_y": .5}
-                elevation: 4
                 shadow_radius: 6
                 shadow_offset: 0, 2
                 radius: 20
                 spacing: "5dp"
                 line_color: (0.2, 0.2, 0.2, 0.8)
+                elevation: 4
 
                 MDIconButton:
                     icon: "theme-light-dark"
                     pos_hint: {"center_x": .5, "center_y": .5}
                     icon_size: "30sp"
                     icon_color: "red"
-                    #md_bg_color: app.theme_cls.primary_color
-                    on_release: app.switch_theme_style()
 
                 MDLabel:
                     id: sign
@@ -71,20 +56,22 @@ My_Layout:
                     bold: True
                     font_style: "H5"
 
-                ClickableTextFieldRoundEmail:
+                MDTextField:
                     id: login_email
                     hint_text: "Email"
+                    icon_left: "email"
+                    helper_text: "user@gmail.com"
+                    #validator: "email"
                     size_hint_x: None
                     size_hint: 0.8,0.8
                     pos_hint: {"center_x": .5, "y": .5}
 
                 ClickableTextFieldRoundPassword:
                     id: login_pass
+                    text: ""
                     size_hint_x: None
-                    text: app.login_pass
                     size_hint: 0.8,0.8
                     hint_text: "Password"
-
                     pos_hint: {"center_x": .5, "center_y": .5}
 
                 MDRoundFlatButton:
@@ -92,7 +79,7 @@ My_Layout:
                     text: "Sign In"
                     size_hint: 0.5,0.2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    on_press: app.moving_home() # screen_mngr.current = "home1"
+                    on_press: app.login()
                              
                 MDFlatButton:
                     text: "Forget Password ?"
@@ -117,7 +104,7 @@ My_Layout:
             MDCard:
                 orientation: "vertical"
                 padding: 0, "1dp", 0 , "10dp"
-                size_hint: .8, .8 - 0.03
+                size_hint: .8, .9 - 0.06
                 pos_hint: {"center_x": .5, "center_y": .5}
                 elevation: 5
                 shadow_radius: 6
@@ -134,8 +121,20 @@ My_Layout:
                     bold: True
                     font_style: "H5"
 
-                ClickableTextFieldRoundEmail:
+                MDTextField:
+                    id: full_name
+                    hint_text: "Full name"
+                    icon_left: "account"
+                    size_hint_x: None
+                    size_hint: 0.8,0.8
+                    pos_hint: {"center_x": .5, "y": .6}
+                    text_color_normal: "gray"
+
+                MDTextField:
+                    id: email_up
                     hint_text: "Email"
+                    icon_left: "email"
+                    helper_text: "user@gmail.com"
                     size_hint_x: None
                     size_hint: 0.8,0.8
                     pos_hint: {"center_x": .5, "y": .5}
@@ -159,7 +158,7 @@ My_Layout:
                     text: "Sign up"
                     size_hint: 0.5,0.2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    on_press: screen_mngr.current = "home1"
+                    on_press: app.sign_up()
 
                 MDLabel:
                     text: "Have an account ?"
@@ -167,13 +166,14 @@ My_Layout:
                     valign: "center"
                     size_hint: 0.8,0.6
                     pos_hint: {"center_x": .5, "center_y": .5}
+
                 MDFlatButton:
                     text: "Sign in"
                     theme_text_color: "Custom"
                     text_color: "orange"
                     size_hint: 0.5,0.2
                     pos_hint: {"center_x": .5, "center_y": .2}
-                    on_release: screen_mngr.current = "home"
+                    on_press: app.sign_in_from_sign_up()
 
 
         Fgt_pass_Screen:
@@ -256,12 +256,6 @@ My_Layout:
                         pos_hint: {"center_x": .5, "center_y": .7 + 0.02}
                         size_hint: None, None
                         size: "300dp", "150dp"
-
-                        MDLabel:
-                            text: "SHOPPING NOW"
-                            bold: True
-                            #theme_text_color: "Custom"
-                            text_color: "ffa500"
 
                     MDLabel:
                         text: "Categories"
@@ -347,9 +341,24 @@ My_Layout:
                     name: 'screen 4'
                     icon: 'account-circle-outline'
 
+                    MDSmartTile:
+                        radius: 100
+                        box_radius: [0, 0, 24, 24]
+                        box_color: 1, 1, 1, .2
+                        source: "me.JPEG"
+                        pos_hint: {"center_x": .5, "center_y": .8}
+                        size_hint: None, None
+                        size: "160dp", "160dp"
+
                     MDLabel:
-                        text: 'Profile'
+                        id: name_intent
                         halign: 'center'
+                        pos_hint: {"center_x": .5, "center_y": .5}
+
+                    MDLabel:
+                        id: email_intent
+                        halign: 'center'
+                        pos_hint: {"center_x": .5, "center_y": .4}
 
                 MDBottomNavigationItem:
                     name: 'screen 5'

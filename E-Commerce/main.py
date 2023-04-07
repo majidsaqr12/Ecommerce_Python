@@ -1,13 +1,15 @@
+import pickle
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.screenmanager import Screen
 from kivymd.app import MDApp
-from kivymd.uix.list import OneLineListItem
+from kivymd.toast import toast
 from kivymd.uix.relativelayout import MDRelativeLayout
 
 Window.size = (350, 600)
+
 
 class My_Layout(FloatLayout):
     screen_mngr = ObjectProperty(None)
@@ -96,39 +98,64 @@ class Show_Product_phone5_Screen(Screen):
 
 
 class MainApp(MDApp):
+    email = ""
+    full_Name = ""
 
-    login_pass = ""
-
-    def __init__(self, **kwargs):
+    def __init__(self):
         super().__init__()
         self.screen_mngr = None
         self.manager = None
 
     def build(self):
         self.title = "E Bay"
-        self.theme_cls.theme_style_switch_animation = True
-        self.theme_cls.theme_style_switch_animation_duration = 0.9
         self.theme_cls.theme_style = "Light"
         self.theme_cls.primary_palette = "Red"
         return Builder.load_file('mainApp.kv')
 
-    def switch_theme_style(self):
-        self.theme_cls.primary_palette = (
-            "Orange" if self.theme_cls.primary_palette == "Red" else "Red"
-        )
-        self.theme_cls.theme_style = (
-            "Dark" if self.theme_cls.theme_style == "Light" else "Light"
-        )
+    def login(self):
+        # self.email = self.root.ids.login_email.text
+        self.root.ids.md_login.elevation = 4
+        if self.root.ids.login_email.text == self.email and self.root.ids.login_email.text != "" and self.root.ids.login_email.text.__contains__(
+                '@') and self.root.ids.login_email.text.__contains__('.com'):
+            self.root.ids.email_intent.text = "Email :  " + self.email
+            self.root.ids.name_intent.text = "Name : " + self.full_Name
+            self.root.ids.screen_mngr.current = "home1"
+            self.root.ids.login_email.text = ""
+            self.root.ids.text_field.text = ""
+            print(self.root.ids.login_pass.text)
+            self.root.ids.login_pass.text = ""
+            # kivymd.toast.kivytoast.kivytoast.toast("successfully", [], 10)
+            toast('Successfully')
+        else:
+            toast('please enter correct email or password')
+            self.root.ids.login_email.required = True
+            self.root.ids.login_email.helper_text = "Please enter correct email"
 
-    def logger(self):
-        x = "majid"
-        self.root.ids.sign_up_field.text = x
-        var = self.root.ids.passw
+    def sign_up(self):
+        file = open("data.dot", "ab")
+        self.email = self.root.ids.email_up.text
+        self.full_Name = self.root.ids.full_name.text
 
-    def moving_home(self):
-        self.root.ids.screen_mngr.current = "home1"
-        # self.login_pass = self.root.screen_mngr.get_screen('home').ids.login_pass.text
-        # print("this password : ", self.root.ids.screen_mngr.get_screen('home').ids.login_pass.text)
+        if self.email != "" and self.full_Name != "" and self.email.__contains__('@') and self.email.__contains__(
+                '.com'):
+            self.root.ids.screen_mngr.current = "home1"
+            self.root.ids.email_intent.text = "Email :  " + self.email
+            self.root.ids.name_intent.text = "Name : " + self.full_Name
+            self.root.ids.email_up.text = ""
+            self.root.ids.full_name.text = ""
+            toast('Registration completed successfully, Thank you')
+            pickle.dump(self.email, file)
+            file.close()
+
+        else:
+            self.root.ids.email_up.required = True
+            self.root.ids.email_up.helper_text = "example@gmail.com"
+            self.root.ids.full_name.required = True
+            toast('please complete your info')
+
+    def sign_in_from_sign_up(self):
+        self.root.ids.md_login.elevation = 4
+        self.root.ids.screen_mngr.current = "home"
 
 
 if __name__ == '__main__':

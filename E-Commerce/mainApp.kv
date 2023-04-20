@@ -1,23 +1,3 @@
-<ClickableTextFieldRoundPassword>:
-    size_hint_y: None
-    height: text_field.height
-
-    MDTextField:
-        id: text_field
-        hint_text: root.hint_text
-        password: True
-        icon_left: "key-variant"
-        # required: True
-        mode: "line"
-
-    MDIconButton:
-        icon: "eye-off"
-        pos_hint: {"center_y": .5}
-        pos: text_field.width - self.width + dp(8), 0
-        theme_text_color: "Hint"
-        on_release:
-            self.icon = "eye" if self.icon == "eye-off" else "eye-off"
-            text_field.password = False if text_field.password is True else True
 My_Layout:
     screen_Mngr: screen_mngr
     ScreenManager:
@@ -66,12 +46,13 @@ My_Layout:
                     size_hint: 0.8,0.8
                     pos_hint: {"center_x": .5, "y": .5}
 
-                ClickableTextFieldRoundPassword:
+                MDTextField:
                     id: login_pass
-                    text: ""
                     size_hint_x: None
                     size_hint: 0.8,0.8
                     hint_text: "Password"
+                    icon_left: "key-variant"
+                    password: True
                     pos_hint: {"center_x": .5, "center_y": .5}
 
                 MDRoundFlatButton:
@@ -87,7 +68,7 @@ My_Layout:
                     text_color: "orange"
                     size_hint: 0.5,0.2
                     pos_hint: {"center_x": .5, "center_y": .2}
-                    on_release: screen_mngr.current = "fgt_pass"
+                    on_press: screen_mngr.current = "fgt_pass"
 
                 MDFlatButton:
                     text: "Join With US"
@@ -95,8 +76,7 @@ My_Layout:
                     text_color: "orange"
                     size_hint: 0.5,0.2
                     pos_hint: {"center_x": .5, "center_y": .2}
-                    on_release: screen_mngr.current = "signup"
-
+                    on_press: screen_mngr.current = "signup"
 
         Signup_Screen:
             id: signup
@@ -140,17 +120,22 @@ My_Layout:
                     pos_hint: {"center_x": .5, "y": .5}
                     text_color_normal: "gray"
 
-                ClickableTextFieldRoundPassword:
-                    id: sign_up_field
+                MDTextField:
+                    id: sign_up_pass
                     size_hint_x: None
                     size_hint: 0.8,0.8
                     hint_text: "Password"
+                    icon_left: "key-variant"
+                    password: True
                     pos_hint: {"center_x": .5, "center_y": .5}
 
-                ClickableTextFieldRoundPassword:
+                MDTextField:
+                    id: sign_up_confirm_pass
                     size_hint_x: None
                     size_hint: 0.8,0.8
                     hint_text: "Confirm Password"
+                    icon_left: "key-variant"
+                    password: True
                     pos_hint: {"center_x": .5, "center_y": .5}
 
                 MDRoundFlatButton:
@@ -158,7 +143,7 @@ My_Layout:
                     text: "Sign up"
                     size_hint: 0.5,0.2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    on_press: app.sign_up()
+                    on_press: app.skip()
 
                 MDLabel:
                     text: "Have an account ?"
@@ -330,13 +315,11 @@ My_Layout:
                         halign: 'center'
 
                 MDBottomNavigationItem:
-                    name: 'screen 3'
-                    icon: 'shopping'
+                    id: screen_3
+                    name: 'screen3'
+                    icon: 'cart-heart'
                     icon_color: 'red'
-
-                    MDLabel:
-                        text: 'shopping'
-                        halign: 'center'
+                                
 
                 MDBottomNavigationItem:
                     name: 'screen 4'
@@ -386,7 +369,8 @@ My_Layout:
                         text: "HP Probook 450 G8 Laptop"
                         secondary_text: "Core i7-1165G7 8GB RAM 512GB PCIe"
                         tertiary_text: "24,912 EG"
-                        on_press: screen_mngr.current = "show_product_lap_screen"
+                        # on_press: screen_mngr.current = "show_product_lap_screen"
+                        on_press: app.change_product_lab1()
 
                         ImageLeftWidget:
                             source: "laptopimg/appstore.png"
@@ -396,7 +380,7 @@ My_Layout:
                         text: "Apple 32″ Pro Display XDR 16:9"
                         secondary_text: "Retina 6K HDR IPS Display"
                         tertiary_text: "229,999 EG"
-                        on_press: screen_mngr.current = "show_product_lap1_screen"
+                        on_press: app.change_product_lab2()
 
                         ImageLeftWidget:
                             source: "laptopimg/appstore1.png"
@@ -406,7 +390,7 @@ My_Layout:
                         text: "HP Victus 15-fa0031dx Gaming Laptop"
                         secondary_text: "Windows 11 - Mica Silver"
                         tertiary_text: "24,049 EG"
-                        on_press: screen_mngr.current = "show_product_lap2_screen"
+                        on_press: app.change_product_lab3()
 
                         ImageLeftWidget:
                             source: "laptopimg/appstore2.png"
@@ -416,7 +400,7 @@ My_Layout:
                         text: "Lenovo Legion 5 Pro Laptop"
                         secondary_text: "Core i7-11800H, 16GB RAM, 512GB"
                         tertiary_text: "35,7749 EG"
-                        on_press: screen_mngr.current = "show_product_lap3_screen"
+                        on_press: app.change_product_lab4()
 
                         ImageLeftWidget:
                             source: "laptopimg/appstore3.png"
@@ -426,7 +410,7 @@ My_Layout:
                         text: "G15 5511 Gaming Laptop"
                         secondary_text: "HARD 512GB SSD - VGA NVIDIA GeForce RTX 3050"
                         tertiary_text: "31,999 EG"
-                        on_press: screen_mngr.current = "show_product_lap4_screen"
+                        on_press: app.change_product_lab5()
 
                         ImageLeftWidget:
                             source: "laptopimg/appstore4.png"
@@ -436,7 +420,7 @@ My_Layout:
                         text: "Dell G15 15-5515 Gaming laptop"
                         secondary_text: "16 GB RAM, 512GB SSD, 4GB GDDR6 Graphics"
                         tertiary_text: "33,999 EG"
-                        on_press: screen_mngr.current = "show_product_lap5_screen"
+                        on_press: app.change_product_lab6()
 
                         ImageLeftWidget:
                             source: "laptopimg/appstore5.png"
@@ -463,7 +447,7 @@ My_Layout:
                         text: "Apple iPhone 14 Pro Max - 256GB"
                         secondary_text: "Purple"
                         tertiary_text: "Special Price EGP 54,999.00"
-                        on_press: screen_mngr.current = "show_product_phone_screen"
+                        on_press: app.change_product_phone1()
 
                         ImageLeftWidget:
                             source: "phones/appstore.png"
@@ -472,7 +456,7 @@ My_Layout:
                         text: "Google Pixel 7 Pro 6.7in Single Sim"
                         secondary_text: "5G, 12GB Ram, 256GB, Obsidian, US Version"
                         tertiary_text: "34,438 EG"
-                        on_press: screen_mngr.current = "show_product_phone1_screen"
+                        on_press: app.change_product_phone2()
                         ImageLeftWidget:
                             source: "phones/appstore1.png"
 
@@ -480,7 +464,7 @@ My_Layout:
                         text: "SAMSUNG 512GB 12GB RAM"
                         secondary_text: "Snapdragon 8 Gen 1 Galaxy S22 Ultra 5G - Phantom Black"
                         tertiary_text: "41,999 EG"
-                        on_press: screen_mngr.current = "show_product_phone2_screen"
+                        on_press: app.change_product_phone3()
 
                         ImageLeftWidget:
                             source: "phones/appstore2.png"
@@ -489,7 +473,7 @@ My_Layout:
                         text: "Samsung Galaxy Tab S8+, 5G, 12.4 Inch"
                         secondary_text: "Android Tablet with S Pen, Pink Gold"
                         tertiary_text: "44,433 EG"
-                        on_press: screen_mngr.current = "show_product_phone3_screen"
+                        on_press: app.change_product_phone4()
 
                         ImageLeftWidget:
                             source: "phones/appstore3.png"
@@ -498,7 +482,7 @@ My_Layout:
                         text: "OPPO Find X5 5G - Smartphone 256GB"
                         secondary_text: "8GB RAM, Dual Sim (Black)"
                         tertiary_text: "18,850 EG"
-                        on_press: screen_mngr.current = "show_product_phone4_screen"
+                        on_press: app.change_product_phone5()
 
                         ImageLeftWidget:
                             source: "phones/appstore4.png"
@@ -507,7 +491,7 @@ My_Layout:
                         text: "REDMAGIC 8 Pro Smartphone 5G Matte"
                         secondary_text: "Black 12GB RAM 256 GB Storage Snapdragon 8 Gen 2, 65W Charger"
                         tertiary_text: "28,950 EG"
-                        on_press: screen_mngr.current = "show_product_phone5_screen"
+                        on_press: app.change_product_phone6()
 
                         ImageLeftWidget:
                             source: "phones/appstore5.png"
@@ -519,13 +503,23 @@ My_Layout:
 
                         ImageLeftWidget:
                             source: "laptopimg/appstore1.png"
-        Show_Product_Lap_Screen:
-            id: show_product_lap_screen
-            name: "show_product_lap_screen"
+
+
+        Show_Product_lab:
+            name: "show_product"
+            id: show_product
+
+            MDIconButton:
+                icon: "arrow-left"
+                pos_hint: {"x": .1 - 0.05, "y": 0.9 + 0.01}
+                icon_size: "30sp"
+                icon_color: "red"
+                #md_bg_color: app.theme_cls.primary_color
+                on_press: screen_mngr.current = "list_laptop_screen"
 
             MDCard:
                 orientation: "vertical"
-                padding: 0, "50dp", 0 , "20dp"
+                padding: 0, "10dp", 0 , "10dp"
                 radius: 20
                 md_bg_color: "ffffff"
                 padding: 0, "20dp", 0 , "20dp"
@@ -534,23 +528,26 @@ My_Layout:
                 spacing: "10dp"
 
                 Image:
-                    source: "showlap/lap.jpg"
+                    id: image_product
+                    #source: "showphone/phone5.jpg"
                     pos_hint: {"center_x": .5, "y": .6}
                     #pos_hint: {"top": 1}
-                    radius: 36, 36, 0, 0
+                    
                 MDLabel:
-                    text: "HP 255 G8 Laptop - Ryzen 5 3500U, 8\nGB RAM, 1 TB HDD, AMD Radeon Vega\n8Graphics, 15.6-Inch HD, DOS - Asteroid\nsilver\n\nEGP12,463.62"
+                    id: details_product
+                    text: "ZTE Nubia Red magic 8 pro Dual Sim Matte,12GB RAM 256GB 5G - International"
                     theme_text_color: "Custom"
                     text_color: "000000"
-                    pos_hint: {"x": .1 - 0.05, "y": .3}
+                    pos_hint: {"x": .1 - 0.05, "y": .1}
                     size_hint_y: 0.9 +.5
-
-                MDSlider
-                    hint: True
-                    hint_bg_color: "red"
-                    hint_text_color: "white"
-                    hint_radius: [5, 5, 5, 5]
-                    value: 1
+                
+                MDLabel:
+                    id: price_product
+                    text: "Price  28,950 EG"
+                    theme_text_color: "Custom"
+                    text_color: "ff0000"
+                    pos_hint: {"x": .1 - 0.05, "y": .4}
+                    size_hint_y: 0.9 +.5
 
                 MDRoundFlatButton:
                     id: sign_up_button
@@ -560,6 +557,7 @@ My_Layout:
                     theme_text_color: "Custom"
                     text_color: "000000"
                     md_bg_color: "yellow"
+                    on_press: app.Add_success()
 
                 MDRoundFlatButton:
                     id: sign_up_button
@@ -569,6 +567,11 @@ My_Layout:
                     theme_text_color: "Custom"
                     text_color: "000000"
                     md_bg_color: "orange"
+                    #on_press: app.change_image()
+
+        Show_Product_phone:
+            name: "show_product_phone"
+            id: show_product_phone
 
             MDIconButton:
                 icon: "arrow-left"
@@ -576,16 +579,11 @@ My_Layout:
                 icon_size: "30sp"
                 icon_color: "red"
                 #md_bg_color: app.theme_cls.primary_color
-                on_release: screen_mngr.current = "list_laptop_screen"
-
-
-        Show_Product_Lap1_Screen:
-            id: show_product_lap1_screen
-            name: "show_product_lap1_screen"
+                on_press: screen_mngr.current = "list_phones_screen"
 
             MDCard:
                 orientation: "vertical"
-                padding: 0, "50dp", 0 , "20dp"
+                padding: 0, "10dp", 0 , "10dp"
                 radius: 20
                 md_bg_color: "ffffff"
                 padding: 0, "20dp", 0 , "20dp"
@@ -594,647 +592,38 @@ My_Layout:
                 spacing: "10dp"
 
                 Image:
-                    source: "showlap/lap2.png"
+                    id: image_product_phone
                     pos_hint: {"center_x": .5, "y": .6}
-                    #pos_hint: {"top": 1}
-                    radius: 36, 36, 0, 0
-                    size_hint_y:0.9 + 0.6
+                    
                 MDLabel:
-                    text: "Apple 32″ Pro Display XDR 16:9\nRetina 6K HDR IPS Display\n\n229,999 EG"
+                    id: details_product_phone
+                    text: "ZTE Nubia Red magic 8 pro Dual Sim Matte,12GB RAM 256GB 5G - International"
                     theme_text_color: "Custom"
                     text_color: "000000"
-                    pos_hint: {"x": .1 - 0.05, "y": .3}
+                    pos_hint: {"x": .1 - 0.05, "y": .1}
+                    size_hint_y: 0.9 +.5
+                
+                MDLabel:
+                    id: price_product_phone
+                    text: "Price  28,950 EG"
+                    theme_text_color: "Custom"
+                    text_color: "ff0000"
+                    pos_hint: {"x": .1 - 0.05, "y": .4}
                     size_hint_y: 0.9 +.5
 
-                MDSlider
-                    hint: True
-                    hint_bg_color: "red"
-                    hint_text_color: "white"
-                    hint_radius: [5, 5, 5, 5]
-                    value: 1
-
                 MDRoundFlatButton:
-                    id: sign_up_button
                     text: "Add to cart"
                     size_hint: 0.8,0.2
                     pos_hint: {"x": .1, "y": .5}
                     theme_text_color: "Custom"
                     text_color: "000000"
                     md_bg_color: "yellow"
+                    on_press: app.Add_success()
 
                 MDRoundFlatButton:
-                    id: sign_up_button
                     text: "Buy now"
                     size_hint: 0.8,0.2
                     pos_hint: {"x": .1, "y": .2}
                     theme_text_color: "Custom"
                     text_color: "000000"
                     md_bg_color: "orange"
-
-            MDIconButton:
-                icon: "arrow-left"
-                pos_hint: {"x": .1 - 0.05, "y": 0.9 + 0.01}
-                icon_size: "30sp"
-                icon_color: "red"
-                #md_bg_color: app.theme_cls.primary_color
-                on_release: screen_mngr.current = "list_laptop_screen"
-
-        Show_Product_Lap2_Screen:
-            id: show_product_lap2_screen
-            name: "show_product_lap2_screen"
-
-            MDCard:
-                orientation: "vertical"
-                padding: 0, "50dp", 0 , "20dp"
-                radius: 20
-                md_bg_color: "ffffff"
-                padding: 0, "20dp", 0 , "20dp"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                size_hint: .8 + 0.05, .8
-                spacing: "10dp"
-
-                Image:
-                    source: "showlap/lap3.jpg"
-                    pos_hint: {"center_x": .5, "y": .6}
-                    #pos_hint: {"top": 1}
-                    radius: 36, 36, 0, 0
-                    size_hint_y:0.9 + 0.6
-                MDLabel:
-                    text: "Asus Vivobook 15 K513EP-BQ311T\nIntel® Core™ i5-1135G7-8GB-\n512GBSSD-NVIDIA® GeForce® MX330\n\n24,049 EG"
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    pos_hint: {"x": .1 - 0.05, "y": .3}
-                    size_hint_y: 0.9 +.5
-
-                MDSlider
-                    hint: True
-                    hint_bg_color: "red"
-                    hint_text_color: "white"
-                    hint_radius: [5, 5, 5, 5]
-                    value: 1
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Add to cart"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .5}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "yellow"
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Buy now"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .2}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "orange"
-
-            MDIconButton:
-                icon: "arrow-left"
-                pos_hint: {"x": .1 - 0.05, "y": 0.9 + 0.01}
-                icon_size: "30sp"
-                icon_color: "red"
-                #md_bg_color: app.theme_cls.primary_color
-                on_release: screen_mngr.current = "list_laptop_screen"
-
-        Show_Product_Lap3_Screen:
-            id: show_product_lap3_screen
-            name: "show_product_lap3_screen"
-
-            MDCard:
-                orientation: "vertical"
-                padding: 0, "50dp", 0 , "20dp"
-                radius: 20
-                md_bg_color: "ffffff"
-                padding: 0, "20dp", 0 , "20dp"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                size_hint: .8 + 0.05, .8
-                spacing: "10dp"
-
-                Image:
-                    source: "showlap/lap4.jpg"
-                    pos_hint: {"center_x": .5, "y": .6}
-                    #pos_hint: {"top": 1}
-                    radius: 36, 36, 0, 0
-                    size_hint_y:0.9 + 0.6
-                MDLabel:
-                    text: "Lenovo Legion 5 Pro Core-i7-11800H,\n32GB, 1TB SSD, RTX 3060 6GB,\n16WQXGA-2560 x 1600 - 500nits 165Hz\n\n35,7749 EG"
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    pos_hint: {"x": .1 - 0.05, "y": .3}
-                    size_hint_y: 0.9 +.5
-
-                MDSlider
-                    hint: True
-                    hint_bg_color: "red"
-                    hint_text_color: "white"
-                    hint_radius: [5, 5, 5, 5]
-                    value: 1
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Add to cart"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .5}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "yellow"
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Buy now"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .2}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "orange"
-
-            MDIconButton:
-                icon: "arrow-left"
-                pos_hint: {"x": .1 - 0.05, "y": 0.9 + 0.01}
-                icon_size: "30sp"
-                icon_color: "red"
-                #md_bg_color: app.theme_cls.primary_color
-                on_release: screen_mngr.current = "list_laptop_screen"
-
-        Show_Product_Lap4_Screen:
-            id: show_product_lap4_screen
-            name: "show_product_lap4_screen"
-
-            MDCard:
-                orientation: "vertical"
-                padding: 0, "50dp", 0 , "20dp"
-                radius: 20
-                md_bg_color: "ffffff"
-                padding: 0, "20dp", 0 , "20dp"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                size_hint: .8 + 0.05, .8
-                spacing: "10dp"
-
-                Image:
-                    source: "showlap/lap5.jpg"
-                    pos_hint: {"center_x": .5, "y": .6}
-                    #pos_hint: {"top": 1}
-                    radius: 36, 36, 0, 0
-                    size_hint_y:0.9 + 0.6
-                MDLabel:
-                    text: "G15 5511 Gaming Laptop - Intel Core\nI7-11800H - RAM16GB - HARD 512GB\nSSD - VGA NVIDIA GeForce RTX 3050\n\n331,999 EG"
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    pos_hint: {"x": .1 - 0.05, "y": .3}
-                    size_hint_y: 0.9 +.5
-
-                MDSlider
-                    hint: True
-                    hint_bg_color: "red"
-                    hint_text_color: "white"
-                    hint_radius: [5, 5, 5, 5]
-                    value: 1
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Add to cart"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .5}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "yellow"
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Buy now"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .2}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "orange"
-
-            MDIconButton:
-                icon: "arrow-left"
-                pos_hint: {"x": .1 - 0.05, "y": 0.9 + 0.01}
-                icon_size: "30sp"
-                icon_color: "red"
-                #md_bg_color: app.theme_cls.primary_color
-                on_release: screen_mngr.current = "list_laptop_screen"
-
-        Show_Product_Lap5_Screen:
-            id: show_product_lap5_screen
-            name: "show_product_lap5_screen"
-
-            MDCard:
-                orientation: "vertical"
-                padding: 0, "50dp", 0 , "20dp"
-                radius: 20
-                md_bg_color: "ffffff"
-                padding: 0, "20dp", 0 , "20dp"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                size_hint: .8 + 0.05, .8
-                spacing: "10dp"
-
-                Image:
-                    source: "showlap/lap6.jpg"
-                    pos_hint: {"center_x": .5, "y": .6}
-                    #pos_hint: {"top": 1}
-                    radius: 36, 36, 0, 0
-                    size_hint_y:0.9 + 0.9
-                MDLabel:
-                    text: "Dell G15-5520 Core-i7-12700H-14Core\n12Gen, 16GB-4800Mhz, 512GB SSD, RTX\n3050 4GB, 15.6FHD-120Hz, Backlit-A/E\n\n331,999 EG"
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    pos_hint: {"x": .1 - 0.05, "y": .3}
-                    size_hint_y: 0.9 +.5
-
-                MDSlider
-                    hint: True
-                    hint_bg_color: "red"
-                    hint_text_color: "white"
-                    hint_radius: [5, 5, 5, 5]
-                    value: 1
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Add to cart"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .5}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "yellow"
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Buy now"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .2}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "orange"
-
-            MDIconButton:
-                icon: "arrow-left"
-                pos_hint: {"x": .1 - 0.05, "y": 0.9 + 0.01}
-                icon_size: "30sp"
-                icon_color: "red"
-                #md_bg_color: app.theme_cls.primary_color
-                on_release: screen_mngr.current = "list_laptop_screen"
-
-        Show_Product_phone_Screen:
-            id: show_product_phone_screen
-            name: "show_product_phone_screen"
-
-            MDCard:
-                orientation: "vertical"
-                padding: 0, "50dp", 0 , "20dp"
-                radius: 20
-                md_bg_color: "ffffff"
-                padding: 0, "20dp", 0 , "20dp"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                size_hint: .8 + 0.05, .8
-                spacing: "10dp"
-
-                Image:
-                    source: "showphone/phone.jpg"
-                    pos_hint: {"center_x": .5, "y": .6}
-                    #pos_hint: {"top": 1}
-                    radius: 36, 36, 0, 0
-                    size_hint_y:0.9 + 0.9
-                MDLabel:
-                    text: "Apple iPhone 14 Pro Max 6.7-inch 5G\n\nSpecial Price EGP 54,999.00"
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    pos_hint: {"x": .1 - 0.05, "y": .3}
-                    size_hint_y: 0.9 +.5
-
-                MDSlider
-                    hint: True
-                    hint_bg_color: "red"
-                    hint_text_color: "white"
-                    hint_radius: [5, 5, 5, 5]
-                    value: 1
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Add to cart"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .5}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "yellow"
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Buy now"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .2}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "orange"
-
-            MDIconButton:
-                icon: "arrow-left"
-                pos_hint: {"x": .1 - 0.05, "y": 0.9 + 0.01}
-                icon_size: "30sp"
-                icon_color: "red"
-                #md_bg_color: app.theme_cls.primary_color
-                on_release: screen_mngr.current = "list_phones_screen"
-
-        Show_Product_phone1_Screen:
-            id: show_product_phone1_screen
-            name: "show_product_phone1_screen"
-
-            MDCard:
-                orientation: "vertical"
-                padding: 0, "50dp", 0 , "20dp"
-                radius: 20
-                md_bg_color: "ffffff"
-                padding: 0, "20dp", 0 , "20dp"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                size_hint: .8 + 0.05, .8
-                spacing: "10dp"
-
-                Image:
-                    source: "showphone/phone1.jpg"
-                    pos_hint: {"center_x": .5, "y": .6}
-                    #pos_hint: {"top": 1}
-                    radius: 36, 36, 0, 0
-                    size_hint_y:0.9 + 0.9 + 0.9
-                MDLabel:
-                    text: "Google Pixel 7 Pro Single Sim, 5G, 12GB\nRam, 256GB, Snow, US Version\n\n34,438 EG"
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    pos_hint: {"x": .1 - 0.05, "y": .3}
-                    size_hint_y: 0.9 +.5
-
-                MDSlider
-                    hint: True
-                    hint_bg_color: "red"
-                    hint_text_color: "white"
-                    hint_radius: [5, 5, 5, 5]
-                    value: 1
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Add to cart"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .5}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "yellow"
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Buy now"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .2}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "orange"
-
-            MDIconButton:
-                icon: "arrow-left"
-                pos_hint: {"x": .1 - 0.05, "y": 0.9 + 0.01}
-                icon_size: "30sp"
-                icon_color: "red"
-                #md_bg_color: app.theme_cls.primary_color
-                on_release: screen_mngr.current = "list_phones_screen"
-
-        Show_Product_phone2_Screen:
-            id: show_product_phone2_screen
-            name: "show_product_phone2_screen"
-
-            MDCard:
-                orientation: "vertical"
-                padding: 0, "50dp", 0 , "20dp"
-                radius: 20
-                md_bg_color: "ffffff"
-                padding: 0, "20dp", 0 , "20dp"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                size_hint: .8 + 0.05, .8
-                spacing: "10dp"
-
-                Image:
-                    source: "showphone/phone2.jpg"
-                    pos_hint: {"center_x": .5, "y": .6}
-                    #pos_hint: {"top": 1}
-                    radius: 36, 36, 0, 0
-                    size_hint_y:0.9 + 0.5
-                MDLabel:
-                    text: "SAMSUNG 512GB 12GB RAM\nSnapdragon 8 Gen 1 Galaxy S22 Ultra\n5G - Phantom Black\n\n41,999 EG"
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    pos_hint: {"x": .1 - 0.05, "y": .3}
-                    size_hint_y: 0.9 +.5
-
-                MDSlider
-                    hint: True
-                    hint_bg_color: "red"
-                    hint_text_color: "white"
-                    hint_radius: [5, 5, 5, 5]
-                    value: 1
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Add to cart"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .5}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "yellow"
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Buy now"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .2}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "orange"
-
-            MDIconButton:
-                icon: "arrow-left"
-                pos_hint: {"x": .1 - 0.05, "y": 0.9 + 0.01}
-                icon_size: "30sp"
-                icon_color: "red"
-                #md_bg_color: app.theme_cls.primary_color
-                on_release: screen_mngr.current = "list_phones_screen"
-
-        Show_Product_phone3_Screen:
-            id: show_product_phone3_screen
-            name: "show_product_phone3_screen"
-
-            MDCard:
-                orientation: "vertical"
-                padding: 0, "50dp", 0 , "20dp"
-                radius: 20
-                md_bg_color: "ffffff"
-                padding: 0, "20dp", 0 , "20dp"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                size_hint: .8 + 0.05, .8
-                spacing: "10dp"
-
-                Image:
-                    source: "showphone/phone3.jpg"
-                    pos_hint: {"center_x": .5, "y": .6}
-                    #pos_hint: {"top": 1}
-                    radius: 36, 36, 0, 0
-                    size_hint_y:0.9 + 0.5
-                MDLabel:
-                    text: "Samsung Galaxy Tab S8 plus 12.4\nInches, 256 GB, 8 GB RAM, 5G LTE - Pink\nGold\n\n44,433 EG"
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    pos_hint: {"x": .1 - 0.05, "y": .3}
-                    size_hint_y: 0.9 +.5
-
-                MDSlider
-                    hint: True
-                    hint_bg_color: "red"
-                    hint_text_color: "white"
-                    hint_radius: [5, 5, 5, 5]
-                    value: 1
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Add to cart"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .5}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "yellow"
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Buy now"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .2}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "orange"
-
-            MDIconButton:
-                icon: "arrow-left"
-                pos_hint: {"x": .1 - 0.05, "y": 0.9 + 0.01}
-                icon_size: "30sp"
-                icon_color: "red"
-                #md_bg_color: app.theme_cls.primary_color
-                on_release: screen_mngr.current = "list_phones_screen"
-
-        Show_Product_phone4_Screen:
-            id: show_product_phone4_screen
-            name: "show_product_phone4_screen"
-
-            MDCard:
-                orientation: "vertical"
-                padding: 0, "50dp", 0 , "20dp"
-                radius: 20
-                md_bg_color: "ffffff"
-                padding: 0, "20dp", 0 , "20dp"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                size_hint: .8 + 0.05, .8
-                spacing: "10dp"
-
-                Image:
-                    source: "showphone/phone4.jpg"
-                    pos_hint: {"center_x": .5, "y": .6}
-                    #pos_hint: {"top": 1}
-                    radius: 36, 36, 0, 0
-                    size_hint_y:0.9 + 0.5
-                MDLabel:
-                    text: "Oppo Reno7 - 5G LTE, 256GB, 8GB RAM\n- Starry Black\n\n18,850 EG"
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    pos_hint: {"x": .1 - 0.05, "y": .3}
-                    size_hint_y: 0.9 +.5
-
-                MDSlider
-                    hint: True
-                    hint_bg_color: "red"
-                    hint_text_color: "white"
-                    hint_radius: [5, 5, 5, 5]
-                    value: 1
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Add to cart"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .5}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "yellow"
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Buy now"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .2}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "orange"
-
-            MDIconButton:
-                icon: "arrow-left"
-                pos_hint: {"x": .1 - 0.05, "y": 0.9 + 0.01}
-                icon_size: "30sp"
-                icon_color: "red"
-                #md_bg_color: app.theme_cls.primary_color
-                on_release: screen_mngr.current = "list_phones_screen"
-
-        Show_Product_phone5_Screen:
-            id: show_product_phone5_screen
-            name: "show_product_phone5_screen"
-
-            MDCard:
-                orientation: "vertical"
-                padding: 0, "50dp", 0 , "20dp"
-                radius: 20
-                md_bg_color: "ffffff"
-                padding: 0, "20dp", 0 , "20dp"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                size_hint: .8 + 0.05, .8
-                spacing: "10dp"
-
-                Image:
-                    source: "showphone/phone5.jpg"
-                    pos_hint: {"center_x": .5, "y": .6}
-                    #pos_hint: {"top": 1}
-                    radius: 36, 36, 0, 0
-                    size_hint_y:0.9 + 0.5
-                MDLabel:
-                    text: "ZTE Nubia Red magic 8 pro Dual Sim Matte\n12GB RAM 256GB 5G - International\n\n28,950 EG"
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    pos_hint: {"x": .1 - 0.05, "y": .3}
-                    size_hint_y: 0.9 +.5
-
-                MDSlider
-                    hint: True
-                    hint_bg_color: "red"
-                    hint_text_color: "white"
-                    hint_radius: [5, 5, 5, 5]
-                    value: 1
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Add to cart"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .5}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "yellow"
-
-                MDRoundFlatButton:
-                    id: sign_up_button
-                    text: "Buy now"
-                    size_hint: 0.8,0.2
-                    pos_hint: {"x": .1, "y": .2}
-                    theme_text_color: "Custom"
-                    text_color: "000000"
-                    md_bg_color: "orange"
-
-            MDIconButton:
-                icon: "arrow-left"
-                pos_hint: {"x": .1 - 0.05, "y": 0.9 + 0.01}
-                icon_size: "30sp"
-                icon_color: "red"
-                #md_bg_color: app.theme_cls.primary_color
-                on_release: screen_mngr.current = "list_phones_screen"

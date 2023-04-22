@@ -3,6 +3,7 @@ My_Layout:
     ScreenManager:
         id: screen_mngr
         home: home
+        
         Screen1:
             id: home
             name: "home"
@@ -143,7 +144,7 @@ My_Layout:
                     text: "Sign up"
                     size_hint: 0.5,0.2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    on_press: app.skip()
+                    on_press: app.sign_up()
 
                 MDLabel:
                     text: "Have an account ?"
@@ -158,8 +159,7 @@ My_Layout:
                     text_color: "orange"
                     size_hint: 0.5,0.2
                     pos_hint: {"center_x": .5, "center_y": .2}
-                    on_press: app.sign_in_from_sign_up()
-
+                    on_press: screen_mngr.current = "home"
 
         Fgt_pass_Screen:
             id: fgt_pass
@@ -434,7 +434,6 @@ My_Layout:
                         ImageLeftWidget:
                             source: "laptopimg/appstore1.png"
 
-
         List_phones_Screen:
             id: list_phones_screen
             name: "list_phones_screen"
@@ -504,7 +503,6 @@ My_Layout:
                         ImageLeftWidget:
                             source: "laptopimg/appstore1.png"
 
-
         Show_Product_lab:
             name: "show_product"
             id: show_product
@@ -567,7 +565,7 @@ My_Layout:
                     theme_text_color: "Custom"
                     text_color: "000000"
                     md_bg_color: "orange"
-                    #on_press: app.change_image()
+                    on_press: screen_mngr.current = "confirm_screen"
 
         Show_Product_phone:
             name: "show_product_phone"
@@ -627,3 +625,148 @@ My_Layout:
                     theme_text_color: "Custom"
                     text_color: "000000"
                     md_bg_color: "orange"
+                    on_press: screen_mngr.current = "confirm_screen"
+
+        Confirm_Screen:
+
+            id: confirm_screen
+            name: "confirm_screen"
+
+            MDCard:
+                #line_color: (0.2, 0.2, 0.2, 0.8)
+                padding: 0, "50dp", 0 , "50dp"
+                orientation: "vertical"
+                spacing: "5dp"
+                size_hint: .8 - 0.01 + 0.05, .9
+                md_bg_color: "ffffff"
+                pos_hint: {"center_x": .5, "center_y": .5 + 0.01}
+                elevation: 5
+                shadow_radius: 6
+                shadow_offset: 0, 2
+                radius: 20
+
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    spacing: "15dp"
+                    pos_hint: {"x": .1 - 0.02, "y": .6 + 0.05}
+                    size_hint_x: 0.9 - 0.05
+
+                    MDTextField:
+                        id: confirm_fname
+                        hint_text: "First Name"
+                        icon_left: "account"
+                        mode: "line"
+                        size_hint_x: 0.5
+
+                    MDTextField:
+                        id: confirm_lname
+                        hint_text: "Last Name"
+                        icon_left: "account"
+                        mode: "line"
+                        size_hint_x: 0.5
+
+
+                MDTextField:
+                    id: confirm_phone
+                    hint_text: "Phone"
+                    icon_left: "phone"
+                    pos_hint: {"x": .1 - 0.02, "y": .4}
+                    size_hint_x: 0.9 - 0.05
+                    mode: "line"
+                    # size_hint_x: 0.5
+
+                MDTextField:
+                    id: confirm_sphone
+                    hint_text: "Second Phone"
+                    icon_left: "phone"
+                    mode: "line"
+                    size_hint_x: 0.9 - 0.05
+                    pos_hint: {"x": 0.1 - 0.02}
+                    # size_hint_x: 0.5
+
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    spacing: "10dp"
+                    pos_hint: {"x": .1 - 0.02, "y": .4}
+                    size_hint_x: 0.9 - 0.05
+
+                    MDTextField:
+                        id: confirm_state
+                        hint_text: "State"
+                        mode: "line"
+                        size_hint_x: 0.5
+
+                    MDTextField:
+                        id: confirm_city
+                        hint_text: "City"
+                        mode: "line"
+                        size_hint_x: 0.5
+                        
+                    MDTextField:
+                        id: confirm_street
+                        hint_text: "Street"
+                        mode: "line"
+                        size_hint_x: 0.5
+                        
+
+                MDTextField:
+                    id: confirm_Ddate
+                    hint_text: "Delivery Date"
+                    mode: "line"
+                    pos_hint: {"x": .1 - 0.02, "y": .5}
+                    size_hint_x: 0.9 - 0.05
+                    helper_text: "dd/mm/yyyy"
+                    #validator: "date"
+                    date_format: "dd/mm/yyyy"
+                    
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    spacing: "10dp"
+                    pos_hint: {"x": .1 - 0.02, "y": .1}
+                    size_hint_x: 0.9 - 0.05
+
+                    MDIconButton:
+                        icon: "minus"
+                        icon_size: "30sp"
+                        icon_color: "Custom"
+                        icon_color: "red"
+                        pos_hint: {"y": 1 - 0.9 - 0.3}
+                        theme_text_color: "Custom"
+                        #md_bg_color: "yellow"
+                        on_press: app.minus_product_one()
+                    
+                    MDTextField:
+                        id: amount
+                        hint_text: "Amount"
+                        mode: "line"
+                        size_hint_x: 0.5
+                        pos_hint: {"y": 1 - 0.9 - 0.3}
+                        input_filter: 'int'
+
+                    MDIconButton:
+                        id: plus_product
+                        icon: "plus"
+                        icon_size: "30sp"
+                        icon_color: "Custom"
+                        icon_color: "red"
+                        pos_hint: {"y": 1 - 0.9 - 0.3}
+                        theme_text_color: "Custom"
+                        #md_bg_color: "yellow"
+                        on_press: app.plus_product_one()
+
+                MDBoxLayout:
+                    orientation: "vertical"
+                    spacing: "10dp"
+                    pos_hint: {"x": .1, "y": 0.1}
+
+                    MDRoundFlatButton:
+                        text: "Confirm"
+                        #size_hint: 0.8,0.2
+                        theme_text_color: "Custom"
+                        text_color: "000000"
+                        size_hint_x: 0.8
+                        md_bg_color: "yellow"
+                        on_press: app.product_confirm_data()
+                    
+
+

@@ -4,6 +4,8 @@ from kivy.properties import ObjectProperty
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.screenmanager import Screen
 from kivymd.app import MDApp
+from kivymd.uix.list import TwoLineAvatarIconListItem
+from kivymd.uix.list import IconLeftWidget
 from kivymd.toast import toast
 import mysql.connector
 
@@ -104,6 +106,8 @@ class MainApp(MDApp):
     street = ""
     ddate = ""
     amount_product = 0
+    select_product = ""
+    price_product = ""
 
     ################
 
@@ -116,9 +120,19 @@ class MainApp(MDApp):
 
     cursor = my_dp.cursor()
 
+    my_dp_products = mysql.connector.connect(
+        host="localhost",
+        user="majidsaqr",
+        password="135790521Mm@",
+        database="EBay"
+        )
+
+    cursor_products = my_dp_products.cursor()
+
     # cursor.execute("CREATE DATABASE EBay")
     # cursor.execute("CREATE TABLE Orders_Buy(id INT AUTO_INCREMENT PRIMARY KEY, product VARCHAR(255), price VARCHAR(255), Fname VARCHAR(255), Lname VARCHAR(255), phone VARCHAR(255), Sphone VARCHAR(255), state VARCHAR(255), city VARCHAR(255), street VARCHAR(255), Ddate VARCHAR(255), amount VARCHAR(255))")
-    #cursor.execute("CREATE TABLE Products(id INT AUTO_INCREMENT PRIMARY KEY, product VARCHAR(255), price VARCHAR(255))")
+    # cursor.execute("CREATE TABLE Cart(id INT AUTO_INCREMENT PRIMARY KEY, product VARCHAR(255), price VARCHAR(255))")
+    # cursor.execute("CREATE TABLE Cart_ID_Number(id INT AUTO_INCREMENT PRIMARY KEY, ID_Number VARCHAR(255))")
 
 
     def __init__(self):
@@ -131,6 +145,9 @@ class MainApp(MDApp):
         self.theme_cls.theme_style = "Light"
         self.theme_cls.primary_palette = "Red"
         return Builder.load_file('mainApp.kv')
+    
+    def on_start(self):
+        pass
 
     def login(self):
 
@@ -160,7 +177,6 @@ class MainApp(MDApp):
                                 self.root.ids.screen_mngr.current = "home1"
                                 self.root.ids.login_email.text = ""
                                 self.root.ids.text_field.text = ""
-                                print(self.root.ids.login_pass.text)
                                 self.root.ids.login_pass.text = ""
                                 # kivymd.toast.kivytoast.kivytoast.toast("successfully", [], 10)
                                 toast('Successfully')
@@ -201,17 +217,17 @@ class MainApp(MDApp):
                             if check_email_founded == True:
                                 if self.password != "":
                                         if self.confirm_password == self.password:
-                                            self.root.ids.screen_mngr.current = "home1"
-                                            self.root.ids.email_intent.text = "Email :  " + self.email
-                                            self.root.ids.name_intent.text = "Name : " + self.full_Name
+                                            self.root.ids.screen_mngr.current = "home"
                                             self.root.ids.email_up.text = ""
                                             self.root.ids.full_name.text = ""
+                                            self.root.ids.sign_up_pass.text = ""
+                                            self.root.ids.sign_up_confirm_pass.text = ""
                                             toast('Registration completed successfully')
                                             sql = "INSERT INTO DataUser (name, email, password) VALUES (%s, %s, %s)"
                                             val = (self.full_Name, self.email, self.password)
                                             self.cursor.execute(sql, val)
                                             self.my_dp.commit()
-                                            self.my_dp.close()
+                                            # self.my_dp.close()
                                         else:
                                             toast("passwords are not same")
                                 else:
@@ -243,14 +259,14 @@ class MainApp(MDApp):
 
         sql_Query_product = "select product from Products where id =%s"
         id = (1,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.lab1 = str(record[0])
 
         sql_Query_product = "select price from Products where id =%s"
         id = (1,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.lab1_price = str(record[0])
 
         self.root.ids.screen_mngr.current = "show_product"
@@ -258,19 +274,21 @@ class MainApp(MDApp):
         self.root.ids.image_product.size_hint_x = 0.9 + 0.9 + 0.9
         self.root.ids.details_product.text = self.lab1
         self.root.ids.price_product.text = self.lab1_price
+        self.select_product = self.lab1
+        self.price_product = self.lab1_price
 
     def change_product_lab2(self):
 
         sql_Query_product = "select product from Products where id =%s"
         id = (2,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.lab2 = str(record[0])
 
         sql_Query_product = "select price from Products where id =%s"
         id = (2,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.lab2_price = str(record[0])
 
         self.root.ids.screen_mngr.current = "show_product"
@@ -279,19 +297,21 @@ class MainApp(MDApp):
         self.root.ids.image_product.size_hint_y = 0.9 + 0.9
         self.root.ids.details_product.text = self.lab2
         self.root.ids.price_product.text = self.lab2_price
+        self.select_product = self.lab2
+        self.price_product = self.lab2_price
 
     def change_product_lab3(self):
         
         sql_Query_product = "select product from Products where id =%s"
         id = (3,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.lab3 = str(record[0])
 
         sql_Query_product = "select price from Products where id =%s"
         id = (3,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.lab3_price = str(record[0])
 
         self.root.ids.screen_mngr.current = "show_product"
@@ -299,19 +319,21 @@ class MainApp(MDApp):
         self.root.ids.image_product.size_hint_y = 0.9 + 0.6
         self.root.ids.details_product.text = self.lab3
         self.root.ids.price_product.text = self.lab3_price
+        self.select_product = self.lab3
+        self.price_product = self.lab3_price
 
     def change_product_lab4(self):
 
         sql_Query_product = "select product from Products where id =%s"
         id = (4,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.lab4 = str(record[0])
 
         sql_Query_product = "select price from Products where id =%s"
         id = (4,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.lab4_price = str(record[0])
         
         self.root.ids.screen_mngr.current = "show_product"
@@ -320,19 +342,21 @@ class MainApp(MDApp):
         self.root.ids.image_product.radius = 36, 36, 0, 0
         self.root.ids.details_product.text = self.lab4
         self.root.ids.price_product.text = self.lab4_price
+        self.select_product = self.lab4
+        self.price_product = self.lab4_price
 
     def change_product_lab5(self):
 
         sql_Query_product = "select product from Products where id =%s"
         id = (5,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.lab5 = str(record[0])
 
         sql_Query_product = "select price from Products where id =%s"
         id = (5,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.lab5_price = str(record[0])
 
         self.root.ids.screen_mngr.current = "show_product"
@@ -341,19 +365,21 @@ class MainApp(MDApp):
         self.root.ids.image_product.radius = 36, 36, 0, 0
         self.root.ids.details_product.text = self.lab5
         self.root.ids.price_product.text = self.lab5_price
+        self.select_product = self.lab5
+        self.price_product = self.lab5_price
 
     def change_product_lab6(self):
 
         sql_Query_product = "select product from Products where id =%s"
         id = (6,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.lab6 = str(record[0])
 
         sql_Query_product = "select price from Products where id =%s"
         id = (6,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.lab6_price = str(record[0])
         
         self.root.ids.screen_mngr.current = "show_product"
@@ -362,19 +388,21 @@ class MainApp(MDApp):
         self.root.ids.image_product.radius = 36, 36, 0, 0
         self.root.ids.details_product.text = self.lab6
         self.root.ids.price_product.text = self.lab6_price
+        self.select_product = self.lab6
+        self.price_product = self.lab6_price
 
     def change_product_phone1(self):
         
         sql_Query_product = "select product from Products where id =%s"
         id = (7,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.phone1 = str(record[0])
 
         sql_Query_product = "select price from Products where id =%s"
         id = (7,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.phone1_price = str(record[0])
 
         self.root.ids.screen_mngr.current = "show_product_phone"
@@ -383,19 +411,21 @@ class MainApp(MDApp):
         self.root.ids.image_product_phone.radius = 36, 36, 0, 0
         self.root.ids.details_product_phone.text = self.phone1
         self.root.ids.price_product_phone.text = self.phone1_price
+        self.select_product = self.phone1
+        self.price_product = self.phone1_price
 
     def change_product_phone2(self):
 
         sql_Query_product = "select product from Products where id =%s"
         id = (8,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.phone2 = str(record[0])
 
         sql_Query_product = "select price from Products where id =%s"
         id = (8,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.phone2_price = str(record[0])
 
         self.root.ids.screen_mngr.current = "show_product_phone"
@@ -404,19 +434,21 @@ class MainApp(MDApp):
         self.root.ids.image_product_phone.radius = 36, 36, 0, 0
         self.root.ids.details_product_phone.text = self.phone2
         self.root.ids.price_product_phone.text = self.phone2_price
+        self.select_product = self.phone2
+        self.price_product = self.phone2_price
 
     def change_product_phone3(self):
         
         sql_Query_product = "select product from Products where id =%s"
         id = (9,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.phone3 = str(record[0])
 
         sql_Query_product = "select price from Products where id =%s"
         id = (9,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.phone3_price = str(record[0])
 
         self.root.ids.screen_mngr.current = "show_product_phone"
@@ -425,19 +457,21 @@ class MainApp(MDApp):
         self.root.ids.image_product_phone.radius = 36, 36, 0, 0
         self.root.ids.details_product_phone.text = self.phone3
         self.root.ids.price_product_phone.text = self.phone3_price
+        self.select_product = self.phone3
+        self.price_product = self.phone3_price
 
     def change_product_phone4(self):
         
         sql_Query_product = "select product from Products where id =%s"
         id = (10,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.phone4 = str(record[0])
 
         sql_Query_product = "select price from Products where id =%s"
         id = (10,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.phone4_price = str(record[0])
 
         self.root.ids.screen_mngr.current = "show_product_phone"
@@ -446,19 +480,21 @@ class MainApp(MDApp):
         self.root.ids.image_product_phone.radius = 36, 36, 0, 0
         self.root.ids.details_product_phone.text = self.phone4
         self.root.ids.price_product_phone.text = self.phone4_price
+        self.select_product = self.phone4
+        self.price_product = self.phone4_price
 
     def change_product_phone5(self):
         
         sql_Query_product = "select product from Products where id =%s"
         id = (11,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.phone5 = str(record[0])
 
         sql_Query_product = "select price from Products where id =%s"
         id = (11,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.phone5_price = str(record[0])
 
         self.root.ids.screen_mngr.current = "show_product_phone"
@@ -467,19 +503,21 @@ class MainApp(MDApp):
         self.root.ids.image_product_phone.radius = 36, 36, 0, 0
         self.root.ids.details_product_phone.text = self.phone5
         self.root.ids.price_product_phone.text = self.phone5_price
+        self.select_product = self.phone5
+        self.price_product = self.phone5_price
 
     def change_product_phone6(self):
         
         sql_Query_product = "select product from Products where id =%s"
         id = (12,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.phone6 = str(record[0])
 
         sql_Query_product = "select price from Products where id =%s"
         id = (12,)
-        self.cursor.execute(sql_Query_product, id)
-        record = self.cursor.fetchone()
+        self.cursor_products.execute(sql_Query_product, id)
+        record = self.cursor_products.fetchone()
         self.phone6_price = str(record[0])
 
         self.root.ids.screen_mngr.current = "show_product_phone"
@@ -488,13 +526,15 @@ class MainApp(MDApp):
         self.root.ids.image_product_phone.radius = 36, 36, 0, 0
         self.root.ids.details_product_phone.text = self.phone6
         self.root.ids.price_product_phone.text = self.phone6_price
+        self.select_product = self.phone6
+        self.price_product = self.phone6_price
 
     def plus_product_one(self):
         self.amount_product = self.amount_product + 1
         self.root.ids.amount.text = str(self.amount_product)
 
     def minus_product_one(self):
-        if self.amount_product != 0:
+        if self.amount_product > 1:
             self.amount_product = self.amount_product - 1
         self.root.ids.amount.text = str(self.amount_product)
 
@@ -517,13 +557,23 @@ class MainApp(MDApp):
                                     if self.city != "":
                                         if self.street != "":
                                             if self.ddate != "":
-                                                if self.amount_product != "":
+                                                if self.amount_product != 0:
                                                     toast("The request has been registered successfully")
-                                                    # sql = "INSERT INTO DataUser (name, email, password) VALUES (%s, %s, %s)"
-                                                    # val = (self.full_Name, self.email, self.password)
-                                                    # self.cursor.execute(sql, val)
-                                                    # self.my_dp.commit()
+                                                    sql = "INSERT INTO Orders_Buy (product, price, Fname, Lname, phone, Sphone, state, city, street, Ddate, amount) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s)"
+                                                    val = (self.select_product, self.price_product, self.fname, self.lname, self.phone, self.sphone, self.state, self.city, self.street, self.ddate, self.amount_product)
+                                                    self.cursor.execute(sql, val)
+                                                    self.my_dp.commit()
                                                     # self.my_dp.close()
+                                                    self.root.ids.screen_mngr.current = "home1"
+                                                    self.root.ids.confirm_fname.text = ""
+                                                    self.root.ids.confirm_lname.text = ""
+                                                    self.root.ids.confirm_phone.text = ""
+                                                    self.root.ids.confirm_sphone.text = ""
+                                                    self.root.ids.confirm_state.text = ""
+                                                    self.root.ids.confirm_city.text = ""
+                                                    self.root.ids.confirm_street.text = ""
+                                                    self.root.ids.confirm_Ddate.text = ""
+                                                    self.root.ids.amount.text = str(0)
                                                 else:
                                                     toast("Amount is missed")
                                             else:
@@ -542,6 +592,70 @@ class MainApp(MDApp):
                 toast("Last name missed")
         else:
             toast("First name missed")
+
+    def add_to_cart(self):
+
+        my_dp_card = mysql.connector.connect(
+        host="localhost",
+        user="majidsaqr",
+        password="135790521Mm@",
+        database="EBay"
+        )
+
+        check_card = False
+
+        cursor_add_cart = my_dp_card.cursor(dictionary=True)
+        sql_select_Query_add = "select * from Cart"
+        cursor_add_cart.execute(sql_select_Query_add)
+        records_add_cart = cursor_add_cart.fetchall()
+
+        for row in records_add_cart:
+            product_cart_add = row["product"]
+            price_cart_add = row["price"]
+            if self.select_product == product_cart_add and self.price_product == price_cart_add:
+                check_card = True
+            
+        if check_card == True:
+            toast("Already added")
+        else:
+            sql = "INSERT INTO Cart(product, price) VALUES (%s, %s)"
+            val = (self.select_product, self.price_product)
+            cursor_add_cart.execute(sql, val)
+            my_dp_card.commit()
+            toast("Add successfully")
+            self.root.ids.screen_mngr.current = "home1"
+
+    def hello (self):
+        print("hello")
+
+    def show_products_cart(self):
+        try:
+            sql_select_Query = "select * from Cart"
+            cursor_show_cart = self.my_dp.cursor(dictionary=True)
+
+            cursor_show_cart.execute(sql_select_Query)
+            records_show_cart = cursor_show_cart.fetchall()
+
+            for row in records_show_cart:
+                product_cart_show = row["product"]
+                price_cart_show = row["price"]
+                self.root.ids.add_fav_cart.add_widget (
+                    TwoLineAvatarIconListItem (   
+                        IconLeftWidget(
+                            icon="delete"
+                        ),
+                        text=product_cart_show,
+                        secondary_text= price_cart_show,
+                    )
+                )
+        except mysql.connector.Error as e:
+            print("Error reading data from MySQL table", e)
+        finally:
+            if self.my_dp.is_connected():
+                self.my_dp.close()
+                cursor_show_cart.close()
+                print("MySQL connection is closed")
+
 
 if __name__ == '__main__':
     MainApp().run()

@@ -1,9 +1,9 @@
 My_Layout:
     screen_Mngr: screen_mngr
-    ScreenManager:
+    MDScreenManager:
         id: screen_mngr
         home: home
-        
+                
         Screen1:
             id: home
             name: "home"
@@ -23,7 +23,7 @@ My_Layout:
                 md_bg_color: "DDDDDD"
                 unfocus_color: "red"
                 focus_color: "red"
-                #elevation: 4
+                elevation: 4
 
                 MDIconButton:
                     icon: "theme-light-dark"
@@ -61,14 +61,17 @@ My_Layout:
                     password: True
                     pos_hint: {"center_x": .5, "center_y": .5}
 
-                MDRoundFlatButton:
+                MDRoundFlatButtonHover:
                     id: sign_btn
                     text: "Sign In"
+                    md_bg_color: "DDDDDD"
+                    text_color: "red"
                     size_hint: 0.5,0.2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    on_press: app.login()
+                    on_press:
+                        app.login()
                              
-                MDFlatButton:
+                MDFlatButtonHover:
                     text: "Forget Password ?"
                     theme_text_color: "Custom"
                     text_color: "orange"
@@ -76,7 +79,7 @@ My_Layout:
                     pos_hint: {"center_x": .5, "center_y": .2}
                     on_press: screen_mngr.current = "fgt_pass"
 
-                MDFlatButton:
+                MDFlatButtonHover:
                     text: "Join With US"
                     theme_text_color: "Custom"
                     text_color: "orange"
@@ -88,22 +91,22 @@ My_Layout:
             id: signup
             name: "signup"
             MDCard:
+                padding: 0, "10dp", 0 , "1dp"
                 orientation: "vertical"
-                padding: 0, "1dp", 0 , "10dp"
-                size_hint: .8, .9 - 0.06
-                pos_hint: {"center_x": .5, "center_y": .5}
-                shadow_radius: 6
-                shadow_offset: 0, 2
-                spacing: "5dp"
+                spacing: "1dp"
+                size_hint: .8 - 0.01 + 0.05, .9 + 0.02
+                md_bg_color: "ffffff"
+                pos_hint: {"center_x": .5, "center_y": .5 + 0.01}
                 radius: 25
                 line_color: (0.0, 0.0, 0.0, 0.0)
                 md_bg_color: "DDDDDD"
+                elevation: 4
 
                 MDLabel:
                     text: "SIGN UP"
                     halign: "center"
                     valign: "center"
-                    pos_hint: {"center_x": .5, "center_y": .5}
+                    pos_hint: {"center_x": 0.5, "y": .8}
                     # bold: True
                     italic: True
                     font_style: "H5"
@@ -114,7 +117,7 @@ My_Layout:
                     icon_left: "account"
                     size_hint_x: None
                     size_hint: 0.8,0.8
-                    pos_hint: {"center_x": .5, "y": .6}
+                    pos_hint: {"x": .1 - 0.02, "y": .6}
                     text_color_normal: "gray"
 
                 MDTextField:
@@ -124,8 +127,43 @@ My_Layout:
                     helper_text: "user@gmail.com"
                     size_hint_x: None
                     size_hint: 0.8,0.8
-                    pos_hint: {"center_x": .5, "y": .5}
+                    pos_hint: {"x": .1 - 0.02, "y": .9}
                     text_color_normal: "gray"
+                
+                MDTextField:
+                    id: phone
+                    hint_text: "phone"
+                    icon_left: "phone"
+                    text: "+20"
+                    size_hint_x: None
+                    size_hint: 0.8,0.8
+                    pos_hint: {"x": .1 - 0.02, "y": .8}
+                    text_color_normal: "gray"
+                    max_text_length: 13
+                
+                # MDBoxLayout:
+                #     orientation: "horizontal"
+                #     spacing: "10dp"
+                #     pos_hint: {"x": .1 - 0.02, "y": .8}
+                #     size_hint_x: 0.9 - 0.05
+
+                #     MDTextField:
+                #         id: confirm_state
+                #         hint_text: "State"
+                #         mode: "line"
+                #         size_hint_x: 0.5
+
+                #     MDTextField:
+                #         id: confirm_city
+                #         hint_text: "City"
+                #         mode: "line"
+                #         size_hint_x: 0.5
+                        
+                #     MDTextField:
+                #         id: confirm_street
+                #         hint_text: "Street"
+                #         mode: "line"
+                #         size_hint_x: 0.5
 
                 MDTextField:
                     id: sign_up_pass
@@ -134,7 +172,7 @@ My_Layout:
                     hint_text: "Password"
                     icon_left: "key-variant"
                     password: True
-                    pos_hint: {"center_x": .5, "center_y": .5}
+                    pos_hint: {"x": .1 - 0.02, "y": .6}
 
                 MDTextField:
                     id: sign_up_confirm_pass
@@ -143,29 +181,32 @@ My_Layout:
                     hint_text: "Confirm Password"
                     icon_left: "key-variant"
                     password: True
-                    pos_hint: {"center_x": .5, "center_y": .5}
+                    pos_hint: {"x": .1 - 0.02, "y": .5}
 
-                MDRoundFlatButton:
+                MDRoundFlatButtonHover:
                     id: sign_up_button
                     text: "Sign up"
+                    md_bg_color: "DDDDDD"
+                    text_color: "red"
                     size_hint: 0.5,0.2
-                    pos_hint: {"center_x": .5, "center_y": .5}
+                    pos_hint: {"center_x": 0.5, "y": .4}
                     on_press: app.sign_up()
 
+                
                 MDLabel:
                     text: "Have an account ?"
                     halign: "center"
                     valign: "center"
                     size_hint: 0.8,0.6
-                    pos_hint: {"center_x": .5, "center_y": .5}
+                    pos_hint: {"center_x": 0.5, "y": .3}
                     italic: True
 
-                MDFlatButton:
+                MDFlatButtonHover:
                     text: "Sign in"
                     theme_text_color: "Custom"
                     text_color: "orange"
                     size_hint: 0.5,0.2
-                    pos_hint: {"center_x": .5, "center_y": .2}
+                    pos_hint: {"center_x": 0.5, "y": 0.3}
                     on_press: screen_mngr.current = "home"
 
         Fgt_pass_Screen:
@@ -190,7 +231,7 @@ My_Layout:
                 pos_hint: {"x": 0.1, "y": 0.7}
                 size_hint_x: 0.8
 
-            MDRoundFlatButton:
+            MDRoundFlatButtonHover:
                 text: "send"
                 size_hint: 0.8,0.1
                 pos_hint: {"x": .1, "y": .5}
@@ -211,9 +252,11 @@ My_Layout:
             MDBottomNavigation:
                 theme_icon_color: "Custom"
                 icon_color: app.theme_cls.primary_color
+                
                 MDBottomNavigationItem:
                     name: 'HomePage'
                     icon: 'home'
+
                     MDTextField:
                         id: search
                         hint_text: "Search your fav product"
@@ -227,21 +270,25 @@ My_Layout:
                         spacing: "56dp"
                         adaptive_size: True
                         pos_hint: {"x": 0.8 + 0.02, "y": 0.9 }
-                        MDIconButton:
+
+                        MDIconButtonHover:
                             icon: "heart-outline"
                             icon_size: "20sp"
                             theme_icon_color: "Custom"
                             text_color: "ffffff"
                             md_bg_color: "ff0000"
 
-                    MDSmartTile:
+                    MDSmartTileHover:
+                        id: image_change
                         radius: 10
                         box_radius: [0, 0, 10, 10]
                         box_color: 1, 1, 1, .2
-                        source: "imgs/2.jpg"
-                        pos_hint: {"center_x": .5, "center_y": .7 + 0.02}
+                        source: "change_image/back2.jpg"
+                        pos_hint: {"center_x": .5, "center_y": .7 - 0.02}
                         size_hint: None, None
-                        size: "300dp", "150dp"
+                        size: "300dp", "200dp"
+                        overlap: False
+                        #on_press: app.change_image()
 
                     MDLabel:
                         text: "Categories"
@@ -251,11 +298,11 @@ My_Layout:
                         text_color: "000000"
                         italic: True
 
-                    MDFloatingActionButton:
+                    MDFloatingActionButtonHover:
                         icon: "laptop"
                         md_bg_color: "ff0000"
                         pos_hint: {"center_x":0.2 - 0.02, "center_y": .4 + 0.01}
-                        on_release: screen_mngr.current = "list_laptop_screen"
+                        on_press: screen_mngr.current = "list_laptop_screen"
 
                     MDLabel:
                         text: "Laptop"
@@ -271,7 +318,7 @@ My_Layout:
                         text_color: "000000"
                         italic: True
 
-                    MDFloatingActionButton:
+                    MDFloatingActionButtonHover:
                         icon: "camera"
                         md_bg_color: "ff0000"
                         pos_hint: {"center_x":0.4 + 0.01, "center_y": .4 + 0.01}
@@ -283,13 +330,13 @@ My_Layout:
                         text_color: "000000"
                         italic: True
 
-                    MDFloatingActionButton:
+                    MDFloatingActionButtonHover:
                         icon: "cellphone"
                         md_bg_color: "ff0000"
                         pos_hint: {"center_x":0.6 + 0.04, "center_y": .4 + 0.01}
-                        on_release: screen_mngr.current = "list_phones_screen"
+                        on_press: screen_mngr.current = "list_phones_screen"
 
-                    MDFloatingActionButton:
+                    MDFloatingActionButtonHover:
                         icon: "controller"
                         md_bg_color: "ff0000"
                         pos_hint: {"center_x":0.8 + 0.06, "center_y": .4 + 0.01}
@@ -301,23 +348,20 @@ My_Layout:
                         text_color: "000000"
                         italic: True
 
-                    MDSmartTile:
+                    MDSmartTileHover2:
                         radius: 10
                         box_radius: [0, 0, 10, 10]
                         box_color: 1, 1, 1, .2
                         source: "imgs/phones.png"
-                        pos_hint: {"center_x": .5, "y": 0.1 - 0.06}
+                        pos_hint: {"center_x": .5, "y": 0.1 - 0.09 - 0.09}
                         size_hint: None, None
-                        size: "300dp", "110dp"
+                        overlap: False
+                        size: "300dp", "185dp"
 
                 MDBottomNavigationItem:
                     name: 'screen 2'
                     icon: 'bell-ring'
                     badge_icon: "numeric-4"
-
-                    MDLabel:
-                        text: 'Notification'
-                        halign: 'center'
 
                 MDBottomNavigationItem:
                     id: screen_3
@@ -325,6 +369,7 @@ My_Layout:
                     icon: 'cart-heart'
                     icon_color: 'red'
                     on_tab_press: app.show_products_cart()
+
                     MDScrollView:
                         id: clear
                         MDList:
@@ -368,262 +413,293 @@ My_Layout:
             id: list_laptop_screen
             name: "list_laptop_screen"
 
-            MDScrollView:
-                MDList:
-                    id: container
+            MDBoxLayout:
+                orientation: "vertical"
 
-                    ThreeLineAvatarIconListItem:
-                        id: lap1
-                        text: "HP Probook 450 G8 Laptop"
-                        secondary_text: "Core i7-1165G7 8GB RAM 512GB PCIe"
-                        tertiary_text: "24,912 EG"
-                        # on_press: screen_mngr.current = "show_product_lap_screen"
-                        on_press: app.change_product_lab1()
-
-                        ImageLeftWidget:
-                            source: "laptopimg/appstore.png"
-
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
+                MDTopAppBar:
+                    md_bg_color: "white"
+                    elevation: 0
+                    size_hint_y: 0.1 - 0.02
+                    MDBoxLayout:
+                        spacing: "5dp"
+                        orientation: "horizontal"
+                        MDIconButton:
+                            icon: "arrow-left"
                             icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                            icon_color: "red"
+                            on_press: screen_mngr.current = "home1"                 
+                MDScrollView:
+                    MDList:
+                        id: container
 
-                    ThreeLineAvatarIconListItem:
-                        id: lap2
-                        text: "Apple 32″ Pro Display XDR 16:9"
-                        secondary_text: "Retina 6K HDR IPS Display"
-                        tertiary_text: "229,999 EG"
-                        on_press: app.change_product_lab2()
+                        ThreeLineAvatarIconListItem:
+                            id: lap1
+                            text: "HP Probook 450 G8 Laptop"
+                            secondary_text: "Core i7-1165G7 8GB RAM 512GB PCIe"
+                            tertiary_text: "24,912 EG"
+                            # on_press: screen_mngr.current = "show_product_lap_screen"
+                            on_press: app.change_product(1, "showlap/lap.jpg", "show_product")
 
-                        ImageLeftWidget:
-                            source: "laptopimg/appstore1.png"
-                        
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
-                            icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                            ImageLeftWidget:
+                                source: "laptopimg/appstore.png"
 
-                    ThreeLineAvatarIconListItem:
-                        id: lap3
-                        text: "HP Victus 15-fa0031dx Gaming Laptop"
-                        secondary_text: "Windows 11 - Mica Silver"
-                        tertiary_text: "24,049 EG"
-                        on_press: app.change_product_lab3()
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
 
-                        ImageLeftWidget:
-                            source: "laptopimg/appstore2.png"
+                        ThreeLineAvatarIconListItem:
+                            id: lap2
+                            text: "Apple 32″ Pro Display XDR 16:9"
+                            secondary_text: "Retina 6K HDR IPS Display"
+                            tertiary_text: "229,999 EG"
+                            on_press: app.change_product(2, "showlap/lap2.png", "show_product")
 
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
-                            icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                            ImageLeftWidget:
+                                source: "laptopimg/appstore1.png"
+                            
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
 
-                    ThreeLineAvatarIconListItem:
-                        id: lap4
-                        text: "Lenovo Legion 5 Pro Laptop"
-                        secondary_text: "Core i7-11800H, 16GB RAM, 512GB"
-                        tertiary_text: "35,7749 EG"
-                        on_press: app.change_product_lab4()
+                        ThreeLineAvatarIconListItem:
+                            id: lap3
+                            text: "HP Victus 15-fa0031dx Gaming Laptop"
+                            secondary_text: "Windows 11 - Mica Silver"
+                            tertiary_text: "24,049 EG"
+                            on_press: app.change_product(3, "showlap/lap3.jpg", "show_product")
 
-                        ImageLeftWidget:
-                            source: "laptopimg/appstore3.png"
-                        
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
-                            icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                            ImageLeftWidget:
+                                source: "laptopimg/appstore2.png"
 
-                    ThreeLineAvatarIconListItem:
-                        id: lap5
-                        text: "G15 5511 Gaming Laptop"
-                        secondary_text: "HARD 512GB SSD - VGA NVIDIA GeForce RTX 3050"
-                        tertiary_text: "31,999 EG"
-                        on_press: app.change_product_lab5()
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
 
-                        ImageLeftWidget:
-                            source: "laptopimg/appstore4.png"
+                        ThreeLineAvatarIconListItem:
+                            id: lap4
+                            text: "Lenovo Legion 5 Pro Laptop"
+                            secondary_text: "Core i7-11800H, 16GB RAM, 512GB"
+                            tertiary_text: "35,7749 EG"
+                            on_press: app.change_product(4, "showlap/lap4.jpg", "show_product")
 
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
-                            icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                            ImageLeftWidget:
+                                source: "laptopimg/appstore3.png"
+                            
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
 
-                    ThreeLineAvatarIconListItem:
-                        id: lap6
-                        text: "Dell G15 15-5515 Gaming laptop"
-                        secondary_text: "16 GB RAM, 512GB SSD, 4GB GDDR6 Graphics"
-                        tertiary_text: "33,999 EG"
-                        on_press: app.change_product_lab6()
+                        ThreeLineAvatarIconListItem:
+                            id: lap5
+                            text: "G15 5511 Gaming Laptop"
+                            secondary_text: "HARD 512GB SSD - VGA NVIDIA GeForce RTX 3050"
+                            tertiary_text: "31,999 EG"
+                            on_press: app.change_product(5, "showlap/lap5.jpg", "show_product")
 
-                        ImageLeftWidget:
-                            source: "laptopimg/appstore5.png"
+                            ImageLeftWidget:
+                                source: "laptopimg/appstore4.png"
 
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
-                            icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
 
-                    ThreeLineAvatarIconListItem:
-                        id: lap7
-                        text: "Apple 32″ Pro Display XDR 16:9"
-                        secondary_text: "Retina 6K HDR IPS Display"
-                        tertiary_text: "229,999 EG"
+                        ThreeLineAvatarIconListItem:
+                            id: lap6
+                            text: "Dell G15 15-5515 Gaming laptop"
+                            secondary_text: "16 GB RAM, 512GB SSD, 4GB GDDR6 Graphics"
+                            tertiary_text: "33,999 EG"
+                            on_press: app.change_product(6, "showlap/lap6.jpg", "show_product")
 
-                        ImageLeftWidget:
-                            source: "laptopimg/appstore1.png"
+                            ImageLeftWidget:
+                                source: "laptopimg/appstore5.png"
 
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
-                            icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+
+                        ThreeLineAvatarIconListItem:
+                            id: lap7
+                            text: "Apple 32″ Pro Display XDR 16:9"
+                            secondary_text: "Retina 6K HDR IPS Display"
+                            tertiary_text: "229,999 EG"
+
+                            ImageLeftWidget:
+                                source: "laptopimg/appstore1.png"
+
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
 
         List_phones_Screen:
             id: list_phones_screen
             name: "list_phones_screen"
 
-            MDScrollView:
-                MDList:
-                    id: container1
+            MDBoxLayout:
+                orientation: "vertical"
 
-                    ThreeLineAvatarIconListItem:
-                        text: "Apple iPhone 14 Pro Max - 256GB"
-                        secondary_text: "Purple"
-                        tertiary_text: "Special Price EGP 54,999.00"
-                        on_press: app.change_product_phone1()
-                        radius: 5
-
-                        ImageLeftWidget:
-                            source: "phones/appstore.png"
-
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
+                MDTopAppBar:
+                    md_bg_color: "white"
+                    elevation: 0
+                    size_hint_y: 0.1 - 0.02
+                    MDBoxLayout:
+                        spacing: "5dp"
+                        orientation: "horizontal"
+                        MDIconButton:
+                            icon: "arrow-left"
                             icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                            icon_color: "red"
+                            on_press: screen_mngr.current = "home1"
 
-                    ThreeLineAvatarIconListItem:
-                        text: "Google Pixel 7 Pro 6.7in Single Sim"
-                        secondary_text: "5G, 12GB Ram, 256GB, Obsidian, US Version"
-                        tertiary_text: "34,438 EG"
-                        on_press: app.change_product_phone2()
+                MDScrollView:
+                    MDList:
+                        id: container1
 
-                        ImageLeftWidget:
-                            source: "phones/appstore1.png"
-                        
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
-                            icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                        ThreeLineAvatarIconListItem:
+                            text: "Apple iPhone 14 Pro Max - 256GB"
+                            secondary_text: "Purple"
+                            tertiary_text: "Special Price EGP 54,999.00"
+                            on_press: app.change_product_phone(7, "showphone/phone.jpg", "show_product_phone", "150dp", "240dp")
+                            radius: 5
 
-                    ThreeLineAvatarIconListItem:
-                        text: "SAMSUNG 512GB 12GB RAM"
-                        secondary_text: "Snapdragon 8 Gen 1 Galaxy S22 Ultra 5G - Phantom Black"
-                        tertiary_text: "41,999 EG"
-                        on_press: app.change_product_phone3()
+                            ImageLeftWidget:
+                                source: "phones/appstore.png"
 
-                        ImageLeftWidget:
-                            source: "phones/appstore2.png"
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
 
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
-                            icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                        ThreeLineAvatarIconListItem:
+                            text: "Google Pixel 7 Pro 6.7in Single Sim"
+                            secondary_text: "5G, 12GB Ram, 256GB, Obsidian, US Version"
+                            tertiary_text: "34,438 EG"
+                            on_press: app.change_product_phone(8, "showphone/phone1.jpg", "show_product_phone", "200dp", "230dp")
 
-                    ThreeLineAvatarIconListItem:
-                        text: "Samsung Galaxy Tab S8+, 5G, 12.4 Inch"
-                        secondary_text: "Android Tablet with S Pen, Pink Gold"
-                        tertiary_text: "44,433 EG"
-                        on_press: app.change_product_phone4()
+                            ImageLeftWidget:
+                                source: "phones/appstore1.png"
+                            
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
 
-                        ImageLeftWidget:
-                            source: "phones/appstore3.png"
+                        ThreeLineAvatarIconListItem:
+                            text: "SAMSUNG 512GB 12GB RAM"
+                            secondary_text: "Snapdragon 8 Gen 1 Galaxy S22 Ultra 5G - Phantom Black"
+                            tertiary_text: "41,999 EG"
+                            on_press: app.change_product_phone(9, "showphone/phone2.jpg", "show_product_phone", "170dp", "230dp")
 
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
-                            icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                            ImageLeftWidget:
+                                source: "phones/appstore2.png"
 
-                    ThreeLineAvatarIconListItem:
-                        text: "OPPO Find X5 5G - Smartphone 256GB"
-                        secondary_text: "8GB RAM, Dual Sim (Black)"
-                        tertiary_text: "18,850 EG"
-                        on_press: app.change_product_phone5()
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
 
-                        ImageLeftWidget:
-                            source: "phones/appstore4.png"
+                        ThreeLineAvatarIconListItem:
+                            text: "Samsung Galaxy Tab S8+, 5G, 12.4 Inch"
+                            secondary_text: "Android Tablet with S Pen, Pink Gold"
+                            tertiary_text: "44,433 EG"
+                            on_press: app.change_product_phone(10, "showphone/phone3.jpg", "show_product_phone", "200dp", "230dp")
 
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
-                            icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                            ImageLeftWidget:
+                                source: "phones/appstore3.png"
 
-                    ThreeLineAvatarIconListItem:
-                        text: "REDMAGIC 8 Pro Smartphone 5G Matte"
-                        secondary_text: "Black 12GB RAM 256 GB Storage Snapdragon 8 Gen 2, 65W Charger"
-                        tertiary_text: "28,950 EG"
-                        on_press: app.change_product_phone6()
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
 
-                        ImageLeftWidget:
-                            source: "phones/appstore5.png"
+                        ThreeLineAvatarIconListItem:
+                            text: "OPPO Find X5 5G - Smartphone 256GB"
+                            secondary_text: "8GB RAM, Dual Sim (Black)"
+                            tertiary_text: "18,850 EG"
+                            on_press: app.change_product_phone(11, "showphone/phone4.jpg", "show_product_phone", "200dp", "230dp")
 
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
-                            icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                            ImageLeftWidget:
+                                source: "phones/appstore4.png"
 
-                    ThreeLineAvatarIconListItem:
-                        text: "Apple 32″ Pro Display XDR 16:9"
-                        secondary_text: "Retina 6K HDR IPS Display"
-                        tertiary_text: "229,999 EG"
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
 
-                        ImageLeftWidget:
-                            source: "laptopimg/appstore1.png"
+                        ThreeLineAvatarIconListItem:
+                            text: "REDMAGIC 8 Pro Smartphone 5G Matte"
+                            secondary_text: "Black 12GB RAM 256 GB Storage Snapdragon 8 Gen 2, 65W Charger"
+                            tertiary_text: "28,950 EG"
+                            on_press: app.change_product_phone(12, "showphone/phone5.jpg", "show_product_phone", "200dp", "230dp")
 
-                        IconRightWidget:
-                            icon: "heart-outline"
-                            theme_icon_color: "Custom"
-                            icon_color: 1, 0, 0, 1
-                            pos_hint: {"center_y": .6}
-                            icon_size: "30sp"
-                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+                            ImageLeftWidget:
+                                source: "phones/appstore5.png"
+
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+
+                        ThreeLineAvatarIconListItem:
+                            text: "Apple 32″ Pro Display XDR 16:9"
+                            secondary_text: "Retina 6K HDR IPS Display"
+                            tertiary_text: "229,999 EG"
+
+                            ImageLeftWidget:
+                                source: "laptopimg/appstore1.png"
+
+                            IconRightWidget:
+                                icon: "heart-outline"
+                                theme_icon_color: "Custom"
+                                icon_color: 1, 0, 0, 1
+                                pos_hint: {"center_y": .6}
+                                icon_size: "30sp"
+                                on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
 
         Show_Product_lab:
             name: "show_product"
@@ -647,11 +723,16 @@ My_Layout:
                 size_hint: .8 + 0.05, .8
                 spacing: "10dp"
 
-                Image:
+                MDSmartTile:
                     id: image_product
-                    #source: "showphone/phone5.jpg"
-                    pos_hint: {"center_x": .5, "y": .6}
-                    #pos_hint: {"top": 1}
+                    radius: 10
+                    box_radius: [0, 0, 10, 10]
+                    box_color: 1, 1, 1, .2
+                    #source: "change_image/back2.jpg"
+                    pos_hint: {"center_x": .5, "center_y": .7 - 0.02}
+                    size_hint: None, None
+                    size: "200dp", "200dp"
+                    overlap: False
                     
                 MDLabel:
                     id: details_product
@@ -669,19 +750,18 @@ My_Layout:
                     pos_hint: {"x": .1 - 0.05, "y": .4}
                     size_hint_y: 0.9 +.5
 
-                MDRoundFlatButton:
-                    id: sign_up_button
+                MDRoundFlatButtonHoverCart:
+                    id: add_to_cart
                     text: "Add to cart"
                     size_hint: 0.8,0.2
                     pos_hint: {"x": .1, "y": .5}
                     theme_text_color: "Custom"
                     text_color: "000000"
                     md_bg_color: "yellow"
-                    on_press: app.Add_success()
-                    on_release: app.add_to_cart()
+                    on_press: screen_mngr.current = "confirm_screen"
 
-                MDRoundFlatButton:
-                    id: sign_up_button
+                MDRoundFlatButtonHoverBuy:
+                    id: buy_now
                     text: "Buy now"
                     size_hint: 0.8,0.2
                     pos_hint: {"x": .1, "y": .2}
@@ -712,9 +792,15 @@ My_Layout:
                 size_hint: .8 + 0.05, .8
                 spacing: "10dp"
 
-                Image:
+                MDSmartTile:
                     id: image_product_phone
-                    pos_hint: {"center_x": .5, "y": .6}
+                    radius: 10
+                    box_radius: [0, 0, 10, 10]
+                    box_color: 1, 1, 1, .2
+                    pos_hint: {"center_x": .5, "center_y": .7 - 0.02}
+                    size_hint: None, None
+                    #size: "200dp", "230dp"
+                    overlap: False
                     
                 MDLabel:
                     id: details_product_phone
@@ -732,16 +818,16 @@ My_Layout:
                     pos_hint: {"x": .1 - 0.05, "y": .4}
                     size_hint_y: 0.9 +.5
 
-                MDRoundFlatButton:
+                MDRoundFlatButtonHoverCart:
                     text: "Add to cart"
                     size_hint: 0.8,0.2
                     pos_hint: {"x": .1, "y": .5}
                     theme_text_color: "Custom"
                     text_color: "000000"
                     md_bg_color: "yellow"
-                    on_press: app.add_to_cart()
+                    on_press: screen_mngr.current = "confirm_screen"
 
-                MDRoundFlatButton:
+                MDRoundFlatButtonHoverBuy:
                     text: "Buy now"
                     size_hint: 0.8,0.2
                     pos_hint: {"x": .1, "y": .2}
@@ -751,116 +837,34 @@ My_Layout:
                     on_press: screen_mngr.current = "confirm_screen"
 
         Confirm_Screen:
-
             id: confirm_screen
             name: "confirm_screen"
+
+            MDIconButton:
+                icon: "arrow-left"
+                pos_hint: {"x": .1 - 0.05, "y": 0.9 + 0.01}
+                icon_size: "30sp"
+                icon_color: "red"
+                #md_bg_color: app.theme_cls.primary_color
+                on_press: screen_mngr.current = "home1"
 
             MDCard:
                 #line_color: (0.2, 0.2, 0.2, 0.8)
                 padding: 0, "50dp", 0 , "50dp"
                 orientation: "vertical"
                 spacing: "5dp"
-                size_hint: .8 - 0.01 + 0.05, .9
-                md_bg_color: "ffffff"
+                size_hint: .8 - 0.01 + 0.05, .6
+                md_bg_color: "DDDDDD"
                 pos_hint: {"center_x": .5, "center_y": .5 + 0.01}
                 radius: 25
                 line_color: (0.0, 0.0, 0.0, 0.0)
                 md_bg_color: "DDDDDD"
+                elevation: 4
 
-                MDBoxLayout:
-                    orientation: "horizontal"
-                    spacing: "15dp"
-                    pos_hint: {"x": .1 - 0.02, "y": .6 + 0.05}
-                    size_hint_x: 0.9 - 0.05
-
-                    MDTextField:
-                        id: confirm_fname
-                        hint_text: "First Name"
-                        icon_left: "account"
-                        mode: "line"
-                        size_hint_x: 0.5
-
-                    MDTextField:
-                        id: confirm_lname
-                        hint_text: "Last Name"
-                        icon_left: "account"
-                        mode: "line"
-                        size_hint_x: 0.5
-
-                MDBoxLayout:
-                    orientation: "horizontal"
-                    spacing: "15dp"
-                    pos_hint: {"x": .1 - 0.02, "y": .4}
-                    size_hint_x: 0.9 - 0.05
-
-                    MDTextField:
-                        id: phone_code
-                        # hint_text: "code"
-                        text: "+20"
-                        mode: "line"
-                        size_hint_x: 0.1
-
-                    MDTextField:
-                        id: confirm_phone
-                        hint_text: "phone"
-                        icon_left: "phone"
-                        mode: "line"
-                        size_hint_x: 0.8
-
-                MDBoxLayout:
-                    orientation: "horizontal"
-                    spacing: "15dp"
-                    pos_hint: {"x": 0.1 - 0.02}
-                    size_hint_x: 0.9 - 0.05
-
-                    MDTextField:
-                        id: sphone_code
-                        # hint_text: "code"
-                        text: "+20"
-                        mode: "line"
-                        size_hint_x: 0.1
-
-                    MDTextField:
-                        id: confirm_sphone
-                        hint_text: "second phone"
-                        icon_left: "phone"
-                        mode: "line"
-                        size_hint_x: 0.8
-
-                MDBoxLayout:
-                    orientation: "horizontal"
-                    spacing: "10dp"
-                    pos_hint: {"x": .1 - 0.02, "y": .4}
-                    size_hint_x: 0.9 - 0.05
-
-                    MDTextField:
-                        id: confirm_state
-                        hint_text: "State"
-                        mode: "line"
-                        size_hint_x: 0.5
-
-                    MDTextField:
-                        id: confirm_city
-                        hint_text: "City"
-                        mode: "line"
-                        size_hint_x: 0.5
-                        
-                    MDTextField:
-                        id: confirm_street
-                        hint_text: "Street"
-                        mode: "line"
-                        size_hint_x: 0.5
-                        
-
-                MDTextField:
-                    id: confirm_Ddate
-                    hint_text: "Delivery Date"
-                    mode: "line"
-                    pos_hint: {"x": .1 - 0.02, "y": .5}
-                    size_hint_x: 0.9 - 0.05
-                    helper_text: "dd/mm/yyyy"
-                    #validator: "date"
-                    date_format: "dd/mm/yyyy"
+                MDRaisedButton:
+                    text: "Delivery time"
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    on_release: app.show_date_picker()
                     
                 MDBoxLayout:
                     orientation: "horizontal"
@@ -902,14 +906,14 @@ My_Layout:
                     spacing: "10dp"
                     pos_hint: {"x": .1, "y": 0.1}
 
-                    MDRoundFlatButton:
-                        text: "Confirm"
+                    MDRoundFlatButtonHover:
+                        text: "Buy"
                         #size_hint: 0.8,0.2
                         theme_text_color: "Custom"
-                        text_color: "000000"
+                        text_color: "red"
                         size_hint_x: 0.8
-                        md_bg_color: "yellow"
-                        on_press: app.product_confirm_data()
+                        md_bg_color: "white"
+                        on_press: app.add_to_cart()
                     
 
 
